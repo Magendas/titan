@@ -1,0 +1,152 @@
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="viewport" content="[__VIEW_PORT__]">
+
+<title>Titan</title>
+
+<link href="[__ROOT_PATH__]/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="shortcut icon" href="[__ROOT_PATH__]/images/logo/favicon.ico" />
+
+<script src="[__ROOT_PATH__]/js/jquery/jquery-1.11.0.min.js"></script>
+<script src="[__ROOT_PATH__]/js/jquery/jquery.form.js"></script>
+<script src="[__ROOT_PATH__]/css/bootstrap/js/bootstrap.min.js"></script>
+<script src="[__ROOT_PATH__]/js/moment/moment.min.js"></script>
+
+<!-- log in only -->
+<script src="[__ROOT_PATH__]/js/facebook/facebook.sdk.js"></script>
+<script src="[__ROOT_PATH__]/js/google/google.sdk.js"></script>
+
+
+
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.ajax.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.validator.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.date.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.color.js"></script>
+
+<!-- view component -->
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.action.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.action.list.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.action.table.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.action.modal.js"></script>
+
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.button.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.checkbox.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.input.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.headsup.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.cropeller.js"></script>
+
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.column.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.modal.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.list_search_tab.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.table.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.print.js"></script>
+
+<!-- csv parser -->
+<script src="[__ROOT_PATH__]/js/papa/papaparse.js"></script>
+
+<!-- xogames -->
+<script src="[__ROOT_PATH__]/js/xogames/quiz.simulator.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/xogames/quiz.factory.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/xogames/callback.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/xogames/param.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/xogames/link.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/xogames/lumino.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/xogames/log.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/xogames/post.processor.js"></script>
+
+
+<!-- xogames css -->
+<link href="[__ROOT_PATH__]/css/xogames/quiz_simulator.css" rel="stylesheet">
+
+
+
+<!-- lumino -->
+<link href="[__ROOT_PATH__]/plugin/lumino/css/datepicker3.css" rel="stylesheet">
+<link href="[__ROOT_PATH__]/plugin/lumino/css/styles.css" rel="stylesheet">
+
+<!-- lumino / Icons -->
+<script src="[__ROOT_PATH__]/plugin/lumino/js/lumino.glyphs.js"></script>
+<script src="[__ROOT_PATH__]/plugin/lumino/js/jquery-1.11.1.min.js"></script>
+<script src="[__ROOT_PATH__]/plugin/lumino/js/bootstrap.min.js"></script>
+<script src="[__ROOT_PATH__]/plugin/lumino/js/chart.min.js"></script>
+<script src="[__ROOT_PATH__]/plugin/lumino/js/easypiechart.js"></script>
+<script src="[__ROOT_PATH__]/plugin/lumino/js/easypiechart-data.js"></script>
+<script src="[__ROOT_PATH__]/plugin/lumino/js/bootstrap-datepicker.js"></script>
+
+<!-- JSON Viewer -->
+<!-- http://rawgit.com/abodelot/jquery.json-viewer/master/demo.html -->
+<link href="[__ROOT_PATH__]/plugin/json-viewer/jquery.json-viewer.css" rel="stylesheet">
+<script src="[__ROOT_PATH__]/plugin/json-viewer/jquery.json-viewer.js"></script>
+
+<!-- flexImages -->
+<link href="[__ROOT_PATH__]/plugin/jQuery-flexImages-master/jquery.flex-images.css" rel="stylesheet">
+<script src="[__ROOT_PATH__]/plugin/jQuery-flexImages-master/jquery.flex-images.min.js"></script>
+
+
+<!-- google login --> 
+<!--
+<script src="https://apis.google.com/js/platform.js?onload=on_load_gapi" async defer></script>
+<meta name="google-signin-client_id" content="567024000478-lnj6fh33fltgv884s78ft7rlrt528pho.apps.googleusercontent.com">
+-->
+
+<!-- bootstrap loader -->
+<link href="[__ROOT_PATH__]/css/bootstrap/loader/animation.css" rel="stylesheet">
+
+<!-- bootstrap toggle -->
+<script src="[__ROOT_PATH__]/plugin/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
+<link href="[__ROOT_PATH__]/plugin/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+<!--
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+-->
+
+<link href="[__ROOT_PATH__]/css/bootstrap/datepicker/datepicker.css" rel="stylesheet">
+<!-- http://www.eyecon.ro/bootstrap-datepicker/ -->
+<script src="[__ROOT_PATH__]/js/bootstrap/datepicker/bootstrap-datepicker.js"></script>
+<!-- TODO : next step / https://github.com/eternicode/bootstrap-datepicker/blob/master/docs/index.rst-->
+
+<STYLE type="text/css">
+	.micro_left {font-size:5%;text-align:left;padding-top:0px !important;padding-bottom:0px !important;}
+	.micro_center {font-size:5%;text-align:center;padding-top:0px !important;padding-bottom:0px !important;}
+  .tiny_left {font-size:50%;text-align:left;padding-top:0px !important;padding-bottom:0px !important;}
+  .tiny_right {font-size:50%;text-align:right;padding-top:0px !important;padding-bottom:0px !important;}
+  .tiny_center {font-size:50%;text-align:center;padding-top:0px !important;padding-bottom:0px !important;}
+  .tiny_white {color:white;margin:0px !important;}
+  ._bold {font-weight:700 !important;}
+  .table_row_bg {background-color:#909090;}
+</STYLE>	
+
+<!-- PC Javascript Library -->
+<script>
+  var _v = airborne.validator;
+  var _v_factory = airborne.validator.factory;
+  var _array = airborne.array;
+  var _regex = airborne.regex;
+  var _dates = airborne.dates;
+  var _html = airborne.html;
+  var _obj = airborne.bootstrap.obj;
+  var _server = airborne.server;
+  var _column = airborne.bootstrap.column;
+  var _ajax = airborne.ajax;
+  var _search_tab = airborne.bootstrap.list_search_tab_manager;
+  var _color = airborne.color;
+  var _json = airborne.json;
+  var _print = airborne.bootstrap.view.print;
+  var _console = airborne.console;
+  var _view_list = airborne.bootstrap.view.obj.list;
+
+  var _action = airborne.bootstrap.obj.__action;
+  var _action_list = airborne.bootstrap.view.obj.__action_list;
+  var _action_table = airborne.bootstrap.view.obj.__action_table;
+  var _action_modal = airborne.bootstrap.view.obj.__action_modal;
+
+  // xogames
+  var _param = param_manager;
+  var _link = link_manager.init("[__ROOT_PATH__]", _server, _param);
+</script>
+

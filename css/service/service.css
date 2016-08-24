@@ -1,0 +1,122 @@
+.xo_textarea_fixed_no_border {
+    resize:none;
+    border: 1px solid #fff !important;
+}
+
+.xo_textarea_char_counter_upper {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #eee;
+}
+
+.xo_textarea_char_counter_lower {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #fff;
+}
+
+.xo_textarea_char_counter_offset {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.xo_textarea_char_counter_user_input_offset {
+    float: right;
+    margin-top: 10px;
+}
+
+.xo_textarea_char_counter_over {
+    color: #F0F;
+}
+
+.xo_text_shadow {
+    text-shadow:2px 2px 4px #000000;
+}
+
+.xo_box_shadow {
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+}
+
+.xo_box_shadow_deep {
+    box-shadow: 0 4px 10px rgba(29,29,29,.3);
+}
+
+.xo_box_shadow_big_leap {
+    box-shadow: 0 20px 20px rgba(45,45,45,.7);
+}
+
+.xo_top_z {
+    z-index:1300;
+}
+
+.xo_center_z {
+    z-index:500;
+}
+
+.xo_bottom_z {
+    z-index:100;
+}
+
+.xo_pos_abs {
+    position:absolute;
+}
+
+.xo_quiz_btn {
+    background-color:#FFF;
+    width:420px;
+    height:345px;
+    opacity:0;
+}
+
+.xo_solid_black {
+    background-color:#000;
+}
+
+.xo_white {
+    background-color:#FFF !important;
+}
+
+.xo_white_color {
+    color:#FFF !important;
+}
+
+.xo_color_dark_gray {
+    color:#999 !important;   
+}
+
+.xo_control_box_bg_color {
+    background-color:#f7f7f7;
+}
+
+.xo_bg_pc {
+    width:960px;
+    height:540px;
+}
+
+.xo_btn_report_group {
+    width: 900px;
+    top: 490px;
+    left: 58px;    
+}
+
+.xo_btn_o_x_pc {
+    left: 26px;
+    opacity: 0; 
+}
+
+.xo_no_border {
+    border: 1px solid #fff;
+}
+
+.xo_result_popup {
+    border: 3px solid #fff !important;
+    border-radius:10px;
+}
+
+
+.xo_feedback_negative_warning {
+    background-color:#F00 !important;
+}

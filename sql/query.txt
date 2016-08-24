@@ -1,0 +1,65 @@
+DROP TABLE IF EXISTS USER;
+DROP TABLE IF EXISTS ACCESS_LOG;
+DROP TABLE IF EXISTS ERROR_LOG;
+DROP TABLE IF EXISTS ACTION_LOG;
+
+CREATE TABLE `USER` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nickname` varchar(65) COLLATE utf8_bin NOT NULL,
+  `first_name` varchar(65) COLLATE utf8_bin NOT NULL,
+  `last_name` varchar(65) COLLATE utf8_bin NOT NULL,
+  `thumbnail` varchar(255) NOT NULL DEFAULT "",
+  `status` varchar(1) COLLATE utf8_bin NOT NULL DEFAULT "A" COMMENT 'user status. A(Available)/N(Not in action)',
+  `permission` varchar(1) COLLATE utf8_bin NOT NULL DEFAULT "U" COMMENT 'user permission. U(User)/A(Administrator)',
+  `fb_id` char(255) COLLATE utf8_bin NOT NULL DEFAULT "",
+  `kakao_id` char(255) COLLATE utf8_bin NOT NULL DEFAULT "",
+  `mobile` varchar(65) COLLATE utf8_bin DEFAULT NULL,
+  `email` varchar(65) COLLATE utf8_bin NOT NULL,
+  `password` varchar(65) COLLATE utf8_bin NOT NULL DEFAULT '0000' COMMENT 'encrypted password',
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_updated` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_unique_id` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='titan user';
+
+CREATE TABLE `ACCESS_LOG` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `time_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'The time when quiz begins',
+  `os` varchar(255) NOT NULL,
+  `browser` varchar(255) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `user_id` int(32) NOT NULL,
+  `msg` text,
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='titan error log';
+
+CREATE TABLE `ERROR_LOG` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `time_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'The time when quiz begins',
+  `os` varchar(255) NOT NULL,
+  `browser` varchar(255) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `user_id` int(32) NOT NULL,  
+  `type` varchar(32) COLLATE utf8_bin NOT NULL,
+  `msg` text,
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id`),
+  INDEX `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='titan error log';
+
+CREATE TABLE `ACTION_LOG` (
+  `id` int(32) NOT NULL AUTO_INCREMENT,
+  `time_start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'The time when quiz begins',
+  `os` varchar(255) COLLATE utf8_bin NOT NULL,
+  `browser` varchar(255) COLLATE utf8_bin NOT NULL,
+  `ip` varchar(32) COLLATE utf8_bin NOT NULL,
+  `type` varchar(32) COLLATE utf8_bin NOT NULL,
+  `user_id` int(32) NOT NULL,
+  `msg` text COLLATE utf8_bin,
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id`),
+  INDEX `type` (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='titan action log';
+
+

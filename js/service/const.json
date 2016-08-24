@@ -1,0 +1,98 @@
+{
+	"USER_STATUS":[
+		{
+			"NAME":"AVAILABLE"
+			, "CODE":"A"
+		}
+		, {
+			"NAME":"NOT IN ACTION"
+			, "CODE":"N"
+		}
+	]
+	, "USER_STATUS_AVAILABLE":"A"
+	, "USER_STATUS_NOT_IN_ACTION":"N"
+
+	, "USER_PERMISSION":[
+		{
+			"NAME":"MANAGER"
+			, "CODE":"M"
+		}
+		, {
+			"NAME":"USER"
+			, "CODE":"U"
+		}
+	]
+	, "USER_PERMISSION_CODE_MANAGER":"M"
+	, "USER_PERMISSION_CODE_USER":"U"
+	, "USER_PERMISSION_CODE":["M","U"]
+	, "USER_PERMISSION_NAME":["MANAGER","USER"]
+
+	, "FACEBOOK_APP_NAME":["LOCAL","DEV","STAGE","PRODUCTION"]
+	, "FACEBOOK_APP":[
+		{
+			"DOMAIN":"localhost"
+			, "ID":"619046961592129"
+			, "VERSION":"v2.6"
+		}
+		,{
+			"DOMAIN":"localhost"
+			, "ID":"619046961592129"
+			, "VERSION":"v2.6"
+		}
+		,{
+			"DOMAIN":"localhost"
+			, "ID":"619046961592129"
+			, "VERSION":"v2.6"
+		}
+		,{
+			"DOMAIN":"localhost"
+			, "ID":"619046961592129"
+			, "VERSION":"v2.6"
+		}
+	]
+	, "FACEBOOK_APP_ID":""
+	, "GOOGLE_APP_ID":""
+	, "KAKAO_APP_ID":""
+	, "EMAIL_WEB_MASTER":""
+	, "EVENT_TYPE":[
+		"USER_INFO_UPDATE"
+		,"USER_LOG_IN"
+		,"INSERT_ERROR"
+		,"INSERT_ACCESS"
+		,"INSERT_ACTION"
+		,"SELECT_ACTION"
+	]
+	, "ERROR_TYPE":[
+		"SLOW_QUERY"
+		, "ERROR_QUERY"
+		, "FETAL_ERROR"
+		, "NO_ERROR"
+	]
+
+	, "ERROR_TYPE_SLOW_QUERY":"SLOW_QUERY"
+	, "ERROR_TYPE_ERROR_QUERY":"ERROR_QUERY"
+	, "ERROR_TYPE_FETAL_ERROR":"FETAL_ERROR"
+	, "ERROR_TYPE_NO_ERROR":"NO_ERROR"
+
+	, "REASON_TYPE":[
+		"NOT_ALLOWED_PERMISSION"
+		, "NOT_VALID_USER_STATUS"
+		, "NO_USER"
+		, "NO_LOG_IN_COOKIE"
+		, "VALIDATION_OK"
+	]
+	, "REASON_NOT_ALLOWED_PERMISSION":"NOT_ALLOWED_PERMISSION"
+	, "REASON_NOT_VALID_USER_STATUS":"NOT_VALID_USER_STATUS"
+	, "REASON_NO_USER":"NO_USER"
+	, "REASON_NO_LOG_IN_COOKIE":"NO_LOG_IN_COOKIE"
+	, "REASON_VALIDATION_OK":"VALIDATION_OK"
+
+	, "DEVICE_REPONSIVE_VIEW_PORT":"width=device-width, initial-scale=1"
+	, "FORCE_PC_VIEW_PORT":"width=device-width, initial-scale=0.1 maximum-scale=1 user-scalable=yes"
+
+	, "PAGE_NUM_DEFAULT":1
+	, "PAGE_RANGE_DEFAULT":10
+	, "ROW_CNT_DEFAULT":50
+	, "IS_DESC_DEFAULT":true
+
+}
