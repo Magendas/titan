@@ -161,10 +161,13 @@ class ParamManager{
 			return $value;
 		}
 
-		// 값이 비어있고, 기본값이 있다면 이를 반환합니다.
 		if( (!is_null($placeholder) && is_null($value)) ) {
+			// 값이 비어있고, 기본값이 있다면 이를 반환합니다.
 			$value = $placeholder;
 			return $value;
+		} else if(is_null($value)) {
+			// 값이 비어있다면, false를 반환
+			return false;
 		}
 
 		// 문자열 true, false를 감지해야 함.

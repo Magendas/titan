@@ -86,22 +86,12 @@ class TitanPreprocessor{
 		return $this->props;
 	}
 	private function set_prop_success($props=null, $error_msg="") {
-
-		if(is_null($props)) {
-			return;
-		}
-
-		$param = $this->param;
-		$const = $param->get_service_const();
-		$var_name = $param->get_service_var_name();
-
-		$props->{$var_name->SUCCESS} = true;
-		$props->{$var_name->ERROR} = $error_msg;
-
-		$this->props = $props;
-
+		$this->set_prop_result($props, $error_msg, true);
 	}
 	private function set_prop_fail($props=null, $error_msg="") {
+		$this->set_prop_result($props, $error_msg, false);
+	}
+	private function set_prop_result($props=null, $error_msg="", $is_success=null) {
 
 		if(is_null($props)) {
 			return;
@@ -111,8 +101,11 @@ class TitanPreprocessor{
 		$const = $param->get_service_const();
 		$var_name = $param->get_service_var_name();		
 
-		$props->{$var_name->SUCCESS} = false;
-		$props->{$var_name->ERROR} = $error_msg;
+		if(!isset($result->{$var_name->SERVICE_STATUS})) {
+			$result->{$var_name->SERVICE_STATUS} = new stdClass();
+		}
+		$props->{$var_name->SERVICE_STATUS}->{$var_name->SUCCESS} = $is_success;
+		$props->{$var_name->SERVICE_STATUS}->{$var_name->ERROR} = $error_msg;
 
 		$this->props = $props;
 
@@ -134,13 +127,17 @@ class TitanPreprocessor{
 			$this->set_prop_fail($result, "is_null(\$var_name)");
 			return;
 		}
-		$result->{$var_name->SERVICE_VAR_NAME} = $var_name;
-		$result->{$var_name->SERVICE_CONST} = $const;
+		// DEV_PROP
+		$result->{$var_name->DEV_PROPS} = new stdClass();
 
-		// STATUS
-		$result->{$var_name->SUCCESS} = true;
-		$result->{$var_name->ERROR} = $const->ERROR_MSG_NO_ERROR;
-		$result->{$var_name->VERSION} = $this->version;
+		$result->{$var_name->DEV_PROPS}->{$var_name->SERVICE_VAR_NAME} = $var_name;
+		$result->{$var_name->DEV_PROPS}->{$var_name->SERVICE_CONST} = $const;
+		$result->{$var_name->DEV_PROPS}->{$var_name->VERSION} = $this->version;
+
+		// SERVICE_STATUS
+		$result->{$var_name->SERVICE_STATUS} = new stdClass();
+
+		$this->set_prop_success($result, $const->ERROR_MSG_NO_ERROR);
 
 		if(is_null($mysql_interface)) {
 			$this->set_prop_fail($result, "is_null(\$mysql_interface)");
@@ -153,6 +150,25 @@ class TitanPreprocessor{
 			return;
 		}
 
+		$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+		$IS_MOBILE = false;
+		if ((strpos($user_agent,'iphone') !== false) || (strpos($user_agent,'android') !== false)) {
+			$IS_MOBILE = true;
+		}	
+		$result->{$var_name->SERVICE_STATUS}->{$var_name->IS_MOBILE} = $IS_MOBILE;
+		$result->{$var_name->SERVICE_STATUS}->{$var_name->IS_DEBUG_MODE} = true;
+
+		$IS_LOG_OUT = $param->get_param_boolean($var_name->IS_LOG_OUT, false);
+		$result->{$var_name->SERVICE_STATUS}->{$var_name->IS_LOG_OUT} = $IS_LOG_OUT;
+		if($IS_LOG_OUT) {
+			$this->set_prop_fail($result, "\$IS_LOG_OUT:$IS_LOG_OUT");
+			return;
+		}
+		
+
+
+
+		// SERVICE_PATH
 		// SERVICE_ROOT_PATH can be empty!
 		$result->{$var_name->SERVICE_ROOT_PATH} = $service_root_path;
 
@@ -166,13 +182,6 @@ class TitanPreprocessor{
 			$permission_arr = array();
 		}
 
-		// 0. CHECK AGENT / MOBILE OR PC?
-		$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-		$IS_MOBILE = false;
-		if ((strpos($user_agent,'iphone') !== false) || (strpos($user_agent,'android') !== false)) {
-			$IS_MOBILE = true;
-		}	
-		$result->{$var_name->IS_MOBILE} = $IS_MOBILE;
 
 
 
@@ -203,15 +212,6 @@ class TitanPreprocessor{
 		$NAV_FILE_PATH = "$file_root_path/template/nav.user.template";
 		$result->{$var_name->NAV_FILE_PATH} = $NAV_FILE_PATH;
 
-		// DEBUG
-		// $result->{$var_name->IS_DEBUG_MODE} = false;
-		$result->{$var_name->IS_DEBUG_MODE} = true;
-
-		$IS_LOG_OUT = $param->get_param_boolean($var_name->IS_LOG_OUT);
-		if($IS_LOG_OUT) {
-			$this->set_prop_fail($result, "\$IS_LOG_OUT:$IS_LOG_OUT");
-			return;
-		}
 
 
 		// 아래와 같은 사전 작업을 진행합니다. 
