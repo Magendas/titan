@@ -47,7 +47,7 @@ include_once(__DIR__."/inc/service/view.manager.inc");
 $file_path_const = __DIR__."/js/service/const.json";
 $const = FetchJSON::get($file_path_const);
 if(is_null($const)) {
-	echo "is_null(\$const)<br/>";
+	echo "common.inc / is_null(\$const)<br/>";
 	die();
 }
 $file_path_const = null;
@@ -57,7 +57,7 @@ $file_path_const = null;
 $file_path_var_name = __DIR__."/js/service/var.name.json";
 $var_name = FetchJSON::get($file_path_var_name);
 if(is_null($var_name)) {
-	echo "is_null(\$var_name)<br/>";
+	echo "common.inc / is_null(\$var_name)<br/>";
 	die();
 }
 $file_path_var_name = null;
@@ -65,13 +65,13 @@ $file_path_var_name = null;
 // @ requried - titan param
 $mysql_feedback = new MYSQLFeedback("common.inc");
 if(is_null($mysql_feedback)) {
-	echo "is_null(\$mysql_feedback)<br/>";
+	echo "common.inc / is_null(\$mysql_feedback)<br/>";
 	die();
 }
 
 $titan_param = ParamManager::get($mysql_feedback, $const, $var_name);
 if(is_null($titan_param)) {
-	echo "is_null(\$titan_param)<br/>";
+	echo "common.inc / is_null(\$titan_param)<br/>";
 	die();
 }
 
@@ -114,9 +114,57 @@ register_shutdown_function('fatalErrorShutdownHandler');
 
 function TitanErrorHandler($code, $message, $file, $line) {
 
-	$titan_param = ParamManager::get();
-	$const = $titan_param->get_service_const();
-	$var_name = $titan_param->get_service_var_name();
+	// Consts, variables
+	$file_path_const = __DIR__."/js/service/const.json";
+	$const = FetchJSON::get($file_path_const);
+	if(is_null($const)) {
+		echo "TitanErrorHandler / is_null(\$const)<br/>";
+		die();
+	}
+
+	$file_path_var_name = __DIR__."/js/service/var.name.json";
+	$var_name = FetchJSON::get($file_path_var_name);
+	if(is_null($var_name)) {
+		echo "TitanErrorHandler / is_null(\$var_name)<br/>";
+		die();
+	}
+
+	$mysql_feedback = new MYSQLFeedback(__FUNCTION__);
+	if(is_null($mysql_feedback)) {
+		echo "TitanErrorHandler / is_null(\$mysql_feedback)<br/>";
+		die();
+	}
+
+	$titan_param = 
+	ParamManager::get(
+		// $feedback=null
+		$mysql_feedback
+		// $service_const_json=null
+		, $const
+		// $service_var_name_json=null
+		, $var_name
+	);
+	if(is_null($titan_param)) {
+		echo "TitanErrorHandler / is_null(\$titan_param)<br/>";
+		die();
+	}
+
+	// DB Setup
+	$mysql_config = MYSQLConfig::get_config_default();
+	$mysql_manager = new MYSQLManager($mysql_config);
+	$mysql_interface = 
+	new MYSQLInterface(
+		// $new_mysql_manager=null
+		$mysql_manager
+		// $param_manager=null
+		, $titan_param
+		// $feedback_manager=null
+		, $mysql_feedback
+	);
+	if(is_null($titan_param)) {
+		echo "TitanErrorHandler / is_null(\$mysql_interface)<br/>";
+		die();
+	}
 
 	$CLIENT_IP = Checker::get_client_ip();
 	$CLIENT_OS = Checker::get_client_os();;
@@ -136,10 +184,7 @@ function TitanErrorHandler($code, $message, $file, $line) {
 	$error_obj->time = TimeManager::get_now_micro();
 
 	$query_param->{$var_name->ERROR_MSG} = json_encode($error_obj);
-	
-	$mysql_config = MYSQLConfig::get_config_default();
-	$mysql_manager = new MYSQLManager($mysql_config);
-	$mysql_interface = new MYSQLInterface($mysql_manager, $titan_param);
+
 	$mysql_interface->insert_error_log($query_param);
 
 	$mysql_interface->close();

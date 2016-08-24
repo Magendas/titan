@@ -23,7 +23,7 @@ class ParamManager{
 		} else if(is_null($service_const_json)) {
 			echo "ParamManager::get / \$service_const_json is not valid!<br/>";
 			return null;
-		} else if(!isset($service_var_name_json)) {
+		} else if(is_null($service_var_name_json)) {
 			echo "ParamManager::get / \$service_var_name_json is not valid!<br/>";
 			return null;
 		} else if(!isset($service_var_name_json->CHECKER) || is_null($service_var_name_json->CHECKER)) {
@@ -39,7 +39,7 @@ class ParamManager{
 		);
 
 		if(is_null($param_manager)) {
-			// 피드백 매니저에게 $param_manager 유효하지 않은 것을 알림. 중단.
+			echo "ParamManager::get / \$param_manager is not valid!<br/>";
 			return null;
 		}
 
@@ -60,23 +60,22 @@ class ParamManager{
 
 	private function ParamManager($feedback=null, $service_const_json=null, $service_var_name_json=null){
 
-
 		if(!is_null(self::$param_manager)) {
 			// 피드백 매니저에게 기존에 만들어진 객체를 가져온 것을 기록.
 			return self::$param_manager;
 		}
 
 		if(is_null($feedback)) {
-			// 새로 만드는 경우라면 피드백 매니저는 반드시 있어야 합니다.
+			echo "ParamManager / \$feedback is not valid!<br/>";
 			return;
 		} else if(is_null($service_const_json)) {
-			// 피드백 매니저에게 $service_const_json가 유효하지 않은 것을 알림. 중단.
-			return null;
-		} else if(!isset($service_const_json->CHECKER)) {
-			// 피드백 매니저에게 $service_const_json가 유효하지 않은 것을 알림. 중단.
+			echo "ParamManager / \$service_const_json is not valid!<br/>";
 			return null;
 		} else if(is_null($service_var_name_json)) {
-			// 피드백 매니저에게 $service_var_name_json 유효하지 않은 것을 알림. 중단.
+			echo "ParamManager / \$service_var_name_json is not valid!<br/>";
+			return null;
+		} else if(!isset($service_var_name_json->CHECKER) || is_null($service_var_name_json->CHECKER)) {
+			echo "ParamManager / \$service_var_name_json->CHECKER is not valid!<br/>";
 			return null;
 		}
 
@@ -216,9 +215,6 @@ class ParamManager{
 		return !$this->is_valid();
 	}
 	public function is_valid($param_std=null, $key_arr=null, $feedback_manager=null, $scope=null){
-
-		
-
 
 		return false;
 	}

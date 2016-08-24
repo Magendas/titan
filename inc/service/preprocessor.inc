@@ -4,12 +4,13 @@ class TitanPreprocessor{
 
 	private $version="v0.520160823";
 	private $param;
-	public function TitanPreprocessor($mysql_interface=null, $param=null, $permission_arr=null) {
+	public function TitanPreprocessor($mysql_interface=null, $permission_arr=null) {
+
+		$this->param = $mysql_interface->get_param_manager();
 
 		$service_root_path = TitanLinkManager::get_service_root_path();
-		$file_root_path = TitanLinkManager::get_file_root_path();
 
-		$this->param = ParamManager::get();
+		$file_root_path = TitanLinkManager::get_file_root_path();
 
 		$this->set_props(
 			// $mysql_interface=null

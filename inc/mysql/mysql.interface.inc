@@ -10,21 +10,35 @@ class MYSQLInterface{
 
 	private $feedback_manager=null;
 
+	public function get_param_manager() {
+		return $this->param_manager;
+	}
+
 	public function MYSQLInterface($new_mysql_manager=null, $param_manager=null, $feedback_manager=null){
 
+		$this->mysql_manager = $new_mysql_manager;
 		if(is_null($new_mysql_manager)) {
 			echo "!Error! / MYSQLInterface / is_null(\$new_mysql_manager)<br/>";
 			return;
 		}
+
+		$this->param_manager = $param_manager;
 		if(is_null($param_manager)) {
 			echo "!Error! / MYSQLInterface / is_null(\$param_manager)<br/>";
 			return;
 		}
 
-		$this->mysql_manager = $new_mysql_manager;
-		$this->param_manager = $param_manager;
 		$this->const = $param_manager->get_service_const();
+		if(is_null($this->const)) {
+			echo "!Error! / MYSQLInterface / is_null(\$this->const)<br/>";
+			return;
+		}
+
 		$this->var_name = $param_manager->get_service_var_name();
+		if(is_null($this->const)) {
+			echo "!Error! / MYSQLInterface / is_null(\$this->var_name)<br/>";
+			return;
+		}
 
 		if(is_null($feedback_manager)) {
 			$this->feedback_manager = new MYSQLFeedback(__FUNCTION__);
@@ -152,7 +166,7 @@ class MYSQLInterface{
 			return;
 		}
 		
-		$result = $query_manager->get_result();		
+		$result = $query_manager->get_result();
 
 		return $result;
 	}
@@ -1417,7 +1431,7 @@ class MYSQLInterface{
 		return $result;
 	}
 
-	public function insert_error_log($param=null) {
+	public function insert_error_log() {
 
 		// CHECK PARAM VALIDATION - INIT
 		$is_not_valid = 
