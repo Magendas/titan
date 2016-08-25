@@ -215,7 +215,7 @@ class MYSQLQueryManager{
 				$extra_data = new stdClass();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_MESSAGE} = $e->getMessage();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY} = $this->get_query();	
-				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY_PARAM} = $this->get_query_param();				
+				$extra_data->{MYSQLFeedback::$FEEDBACK_REQ_PARAM} = $this->get_query_param();				
 				$extra_data->from = "select / try-catch";
 
 				$this->feedback_manager->add_error(
@@ -254,7 +254,7 @@ class MYSQLQueryManager{
 				$extra_data = new stdClass();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_MESSAGE} = $e->getMessage();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY} = $this->get_query();	
-				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY_PARAM} = $this->get_query_param();				
+				$extra_data->{MYSQLFeedback::$FEEDBACK_REQ_PARAM} = $this->get_query_param();				
 				$extra_data->from = "select_list / try-catch";
 
 				$this->feedback_manager->add_error(
@@ -298,7 +298,7 @@ class MYSQLQueryManager{
 				$extra_data = new stdClass();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_MESSAGE} = $e->getMessage();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY} = $this->get_query();	
-				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY_PARAM} = $this->get_query_param();				
+				$extra_data->{MYSQLFeedback::$FEEDBACK_REQ_PARAM} = $this->get_query_param();				
 				$extra_data->from = "select_one / try-catch";
 
 				$this->feedback_manager->add_error(
@@ -334,7 +334,7 @@ class MYSQLQueryManager{
 				$extra_data = new stdClass();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_MESSAGE} = $e->getMessage();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY} = $this->get_query();	
-				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY_PARAM} = $this->get_query_param();
+				$extra_data->{MYSQLFeedback::$FEEDBACK_REQ_PARAM} = $this->get_query_param();
 				$extra_data->from = "modify / try-catch";
 
 				$this->feedback_manager->add_error(
@@ -361,7 +361,7 @@ class MYSQLQueryManager{
 				$extra_data = new stdClass();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_MESSAGE} = $this->get_message();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY} = $this->get_query();	
-				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY_PARAM} = $this->get_query_param();
+				$extra_data->{MYSQLFeedback::$FEEDBACK_REQ_PARAM} = $this->get_query_param();
 				$extra_data->from = "is_failed";
 
 				if($this->is_feedback_manager_on) {
@@ -393,7 +393,7 @@ class MYSQLQueryManager{
 				$extra_data->{MYSQLFeedback::$FEEDBACK_MESSAGE} = $this->get_message();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY} = $this->get_query();
 				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY_ROW} = $this->get_row_cnt();
-				$extra_data->{MYSQLFeedback::$FEEDBACK_QUERY_PARAM} = $this->get_query_param();
+				$extra_data->{MYSQLFeedback::$FEEDBACK_REQ_PARAM} = $this->get_query_param();
 
 				$this->set_execution_micro_diff();
 

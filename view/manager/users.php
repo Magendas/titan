@@ -21,8 +21,8 @@
 			TitanLinkManager::$ADMIN_LOG_IN
 			// param_arr
 			,array(
-				"FACEBOOK_USER_ID"=>$PROPS->FACEBOOK_USER_ID
-				,"GOOGLE_USER_ID"=>$PROPS->GOOGLE_USER_ID
+				"USER_ID_FACEBOOK"=>$PROPS->USER_ID_FACEBOOK
+				,"USER_ID_GOOGLE"=>$PROPS->USER_ID_GOOGLE
 				,"REASON"=>$PROPS->ERROR
 			)
 		);
@@ -107,23 +107,23 @@ echo "</ul>";
 					$__user_id = $user_info->user->__id;
 					$__email = $user_info->user->__email;
 
-					$__user_fb_id = $user_info->user->__fb_id;
-					$__user_fb_id_short = "";
-					if(!empty($__user_fb_id)) {
-						$strlen_fb_id = strlen($__user_fb_id);
-						$head_fb_id = substr($__user_fb_id, 0, $offset_str);
-						$tail_fb_id = substr($__user_fb_id, ($strlen_fb_id-$offset_str), $offset_str);
-						$__user_fb_id_short = $head_fb_id."...".$tail_fb_id;
+					$__user_id_facebook = $user_info->user->__id_facebook;
+					$__user_id_facebook_short = "";
+					if(!empty($__user_id_facebook)) {
+						$strlen_id_facebook = strlen($__user_id_facebook);
+						$head_id_facebook = substr($__user_id_facebook, 0, $offset_str);
+						$tail_id_facebook = substr($__user_id_facebook, ($strlen_id_facebook-$offset_str), $offset_str);
+						$__user_id_facebook_short = $head_id_facebook."...".$tail_id_facebook;
 					}
 
 
-					$__user_google_id = $user_info->user->__google_id;
-					$__user_google_id_short ="";
-					if(!empty($__user_google_id)) {
-						$strlen_google_id = strlen($__user_google_id);
-						$head_google_id = substr($__user_google_id, 0, $offset_str);
-						$tail_google_id = substr($__user_google_id, ($strlen_google_id-$offset_str), $offset_str);
-						$__user_google_id_short = $head_google_id."...".$tail_google_id;
+					$__user_id_google = $user_info->user->__id_google;
+					$__user_id_google_short ="";
+					if(!empty($__user_id_google)) {
+						$strlen_id_google = strlen($__user_id_google);
+						$head_id_google = substr($__user_id_google, 0, $offset_str);
+						$tail_id_google = substr($__user_id_google, ($strlen_id_google-$offset_str), $offset_str);
+						$__user_id_google_short = $head_id_google."...".$tail_id_google;
 					}
 
 
@@ -178,13 +178,13 @@ echo "</ul>";
 						
 					echo 	"<tr>";
 
-					if(empty($__user_fb_id)) {
+					if(empty($__user_id_facebook)) {
 						
 						// 페이스북 계정이 비어있는 경우, 직접 입력할 수 있도록 입력창을 제공
 						// FACEBOOK ID - INIT
 						echo 		"<td style=\"width:20%;\">";
 						echo 			"<div id=\"facebook_id_input_group\" class=\"input-group\">";
-						echo 				"<input __fb_id=\"$__user_fb_id\" __google_id=\"$__user_google_id\" type=\"text\" class=\"form-control\" placeholder=\"Type FBUID\" value=\"$__user_fb_id\">";
+						echo 				"<input __id_facebook=\"$__user_id_facebook\" __id_google=\"$__user_id_google\" type=\"text\" class=\"form-control\" placeholder=\"Type FBUID\" value=\"$__user_id_facebook\">";
 						echo 				"<span class=\"input-group-btn\">";
 						echo 					"<button id=\"btn_nickname_update\" class=\"btn btn-default\" type=\"button\">OK</button>";
 						echo 				"</span>";
@@ -194,15 +194,15 @@ echo "</ul>";
 
 					} else {
 						// 페이스북 계정이 있다면 수정 불가. 화면에 노출.
-						echo 		"<td><small>$__user_fb_id</small></td>";
+						echo 		"<td><small>$__user_id_facebook</small></td>";
 					}
 					
-					if(empty($__user_google_id)) {
+					if(empty($__user_id_google)) {
 						// 구글 계정 및 메일 계정이 비어있는 경우, 직접 입력할 수 있도록 입력창을 제공
 						// EMAIL - INIT
 						echo 		"<td style=\"width:20%;\">";
 						echo 			"<div id=\"email_input_group\" class=\"input-group\">";
-						echo 				"<input __fb_id=\"$__user_fb_id\" __google_id=\"$__user_google_id\" type=\"text\" class=\"form-control\" placeholder=\"Type GMAIL ID\" value=\"$__email\">";
+						echo 				"<input __id_facebook=\"$__user_id_facebook\" __id_google=\"$__user_id_google\" type=\"text\" class=\"form-control\" placeholder=\"Type GMAIL ID\" value=\"$__email\">";
 						echo 				"<span class=\"input-group-btn\">";
 						echo 					"<button id=\"btn_nickname_update\" class=\"btn btn-default\" type=\"button\">OK</button>";
 						echo 				"</span>";
@@ -219,7 +219,7 @@ echo "</ul>";
 					// NICKNAME - INIT
 					echo 		"<td style=\"width:20%;\">";
 					echo 			"<div id=\"nickname_input_group\" class=\"input-group\">";
-					echo 				"<input __fb_id=\"$__user_fb_id\" __google_id=\"$__user_google_id\" type=\"text\" class=\"form-control\" placeholder=\"Type nickname\" value=\"$__user_nickname\">";
+					echo 				"<input __id_facebook=\"$__user_id_facebook\" __id_google=\"$__user_id_google\" type=\"text\" class=\"form-control\" placeholder=\"Type nickname\" value=\"$__user_nickname\">";
 					echo 				"<span class=\"input-group-btn\">";
 					echo 					"<button id=\"btn_nickname_update\" class=\"btn btn-default\" type=\"button\">OK</button>";
 					echo 				"</span>";
@@ -255,7 +255,7 @@ echo "</ul>";
 					echo 		"<td>&#8361; $__payment</td>";
 
 					// user status
-					echo "<td><select id=\"user_status\" user_id=\"$__user_id\" fb_user_id=\"$__user_fb_id\" google_user_id=\"$__user_google_id\" class=\"form-control\" name=\"list_search_tab\" id=\"list_search_tab\">";
+					echo "<td><select id=\"user_status\" user_id=\"$__user_id\" fb_user_id=\"$__user_id_facebook\" google_user_id=\"$__user_id_google\" class=\"form-control\" name=\"list_search_tab\" id=\"list_search_tab\">";
 
 						if(strcmp($__user_status,$param->USER_STATUS_AVAILABLE) == 0) {
 							echo "<option value=\"$param->USER_STATUS_AVAILABLE\" selected>AVAILABLE</option>";
@@ -289,7 +289,7 @@ echo "</ul>";
 					}
 
 					// user permission
-					echo "<td><select id=\"user_permission\" user_id=\"$__user_id\" fb_user_id=\"$__user_fb_id\" google_user_id=\"$__user_google_id\" class=\"form-control\" name=\"list_search_tab\" id=\"list_search_tab\" $attr_disabled>";
+					echo "<td><select id=\"user_permission\" user_id=\"$__user_id\" fb_user_id=\"$__user_id_facebook\" google_user_id=\"$__user_id_google\" class=\"form-control\" name=\"list_search_tab\" id=\"list_search_tab\" $attr_disabled>";
 
 						
 						foreach($user_permission_arr AS $user_permission) {
@@ -308,7 +308,7 @@ echo "</ul>";
 
 
 					// user quota
-					echo "<td><select id=\"user_quota\" user_id=\"$__user_id\" fb_user_id=\"$__user_fb_id\" google_user_id=\"$__user_google_id\" class=\"form-control\" name=\"list_search_tab\" id=\"list_search_tab\">";
+					echo "<td><select id=\"user_quota\" user_id=\"$__user_id\" fb_user_id=\"$__user_id_facebook\" google_user_id=\"$__user_id_google\" class=\"form-control\" name=\"list_search_tab\" id=\"list_search_tab\">";
 
 						$cur_quota_array = $param->get_quota_array();
 						foreach($cur_quota_array AS $cur_quota) {
@@ -375,7 +375,7 @@ echo "</ul>";
 
 						$toggle_tag = ""
 						. "<div id=\"toggle_container\" style=\"float:right;\">"
-							. "<input id=\"toggle_input\" region=\"$PROPS->QUIZ_REGION\" language=\"$PROPS->QUIZ_LANGUAGE\" fb_user_id=\"$__user_fb_id\" google_user_id=\"$__user_google_id\" user_id=\"$__user_id\" category=\"\$category\" type=\"checkbox\" data-toggle=\"toggle\" data-on=\"ON\" data-off=\"OFF\" \$checked>"
+							. "<input id=\"toggle_input\" region=\"$PROPS->QUIZ_REGION\" language=\"$PROPS->QUIZ_LANGUAGE\" fb_user_id=\"$__user_id_facebook\" google_user_id=\"$__user_id_google\" user_id=\"$__user_id\" category=\"\$category\" type=\"checkbox\" data-toggle=\"toggle\" data-on=\"ON\" data-off=\"OFF\" \$checked>"
 						. "</div>"
 						;
 
@@ -427,10 +427,10 @@ echo "</ul>";
 								for($j = 0; $j < $left_cnt; $j++) {
 
 									echo "<th>";
-									echo "<button id=\"on_category_access\" type=\"button\" class=\"btn btn-default\" style=\"margin-right:10px;\"  region=\"$PROPS->QUIZ_REGION\" language=\"$PROPS->QUIZ_LANGUAGE\" fb_user_id=\"$__user_fb_id\" google_user_id=\"$__user_google_id\" user_id=\"$__user_id\">";
+									echo "<button id=\"on_category_access\" type=\"button\" class=\"btn btn-default\" style=\"margin-right:10px;\"  region=\"$PROPS->QUIZ_REGION\" language=\"$PROPS->QUIZ_LANGUAGE\" fb_user_id=\"$__user_id_facebook\" google_user_id=\"$__user_id_google\" user_id=\"$__user_id\">";
 										echo "<strong>All on</strong>";
 									echo "</button>";
-									echo "<button id=\"off_category_access\" type=\"button\" class=\"btn btn-default\" region=\"$PROPS->QUIZ_REGION\" language=\"$PROPS->QUIZ_LANGUAGE\" fb_user_id=\"$__user_fb_id\" google_user_id=\"$__user_google_id\" user_id=\"$__user_id\">";
+									echo "<button id=\"off_category_access\" type=\"button\" class=\"btn btn-default\" region=\"$PROPS->QUIZ_REGION\" language=\"$PROPS->QUIZ_LANGUAGE\" fb_user_id=\"$__user_id_facebook\" google_user_id=\"$__user_id_google\" user_id=\"$__user_id\">";
 										echo "<strong>All off</strong>";
 									echo "</button>";
 									echo "</th>";
@@ -552,8 +552,8 @@ select_region_jq.change(function(){
 
 	_link.refresh_post(
 		_param
-		.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, PROPS.FACEBOOK_USER_ID)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_ID, PROPS.GOOGLE_USER_ID)
+		.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, PROPS.USER_ID_FACEBOOK)
+		.get(PROPS.PARAM_SET.USER_ID_GOOGLE, PROPS.USER_ID_GOOGLE)
 		.get(PROPS.PARAM_SET.QUIZ_REGION, selected_value)
 	);
 
@@ -572,8 +572,8 @@ select_user_status_jq.change(function(){
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_INFO_UPDATE)
 	.get(PROPS.PARAM_SET.USER_STATUS, selected_value)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, fb_user_id)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, google_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, fb_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, google_user_id)
 	;
 
 	console.log("select_user_status_jq.change / request_param_obj ::: ",request_param_obj);
@@ -618,8 +618,8 @@ select_user_permission_jq.change(function(){
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_INFO_UPDATE)
 	.get(PROPS.PARAM_SET.USER_PERMISSION, selected_value)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, fb_user_id)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, google_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, fb_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, google_user_id)
 	;
 
 
@@ -652,8 +652,8 @@ select_user_permission_jq.change(function(){
 				var request_param_obj = 
 				_param
 				.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_ADMIN_CATEGORY_ACCESS_UPDATE_TOGGLE)
-				.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, data.USER_INFO_UPDATED.__fb_id)
-				.get(PROPS.PARAM_SET.GOOGLE_USER_ID, data.USER_INFO_UPDATED.__google_id)
+				.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, data.USER_INFO_UPDATED.__id_facebook)
+				.get(PROPS.PARAM_SET.USER_ID_GOOGLE, data.USER_INFO_UPDATED.__id_google)
 				;
 
 				_ajax.post(
@@ -717,8 +717,8 @@ select_user_quota_jq.change(function(){
 	var request_param_obj = 
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_INFO_UPDATE)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, fb_user_id)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, google_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, fb_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, google_user_id)
 	.get(PROPS.PARAM_SET.USER_QUOTA, selected_value) // wonder.jung - 0을 null로 처리하는 이슈 있음. 
 	;
 
@@ -762,8 +762,8 @@ btn_show_quiz_user_solved_list.click(function(e){
 
 	var _param_obj = 
 	_param
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, PROPS.FACEBOOK_USER_ID)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, PROPS.GOOGLE_USER_ID)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, PROPS.USER_ID_FACEBOOK)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, PROPS.USER_ID_GOOGLE)
 	;
 
 	_link.refresh_post(
@@ -810,8 +810,8 @@ for(var idx=0; idx < user_table_jq_list.length; idx++) {
 		var request_param_obj = 
 		_param
 		.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_CATEGORY_ACCESS_UPDATE)
-		.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, fb_user_id)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_ID, google_user_id)
+		.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, fb_user_id)
+		.get(PROPS.PARAM_SET.USER_ID_GOOGLE, google_user_id)
 		.get(PROPS.PARAM_SET.QUIZ_REGION, region)
 		.get(PROPS.PARAM_SET.QUIZ_LANGUAGE, language)
 		.get(PROPS.PARAM_SET.QUIZ_CATEGORY, category)
@@ -851,8 +851,8 @@ var on_save_nickname = function(input_jq) {
 	}
 
 	var cur_nickname = input_jq.val();
-	var __google_id = input_jq.attr("__google_id");
-	var __fb_id = input_jq.attr("__fb_id");
+	var __id_google = input_jq.attr("__id_google");
+	var __id_facebook = input_jq.attr("__id_facebook");
 
 	if(_v.is_not_valid_str(cur_nickname)) {
 		console.log("Nickname should not be empty!\nPlease check again.");
@@ -867,13 +867,13 @@ var on_save_nickname = function(input_jq) {
 		input_nickname_ele = input_nickname_jq_arr[idx];
 		input_nickname_jq = $(input_nickname_ele);
 
-		var other_fb_id = input_nickname_jq.attr("__fb_id");
-		if(other_fb_id === __fb_id) {
+		var other_id_facebook = input_nickname_jq.attr("__id_facebook");
+		if(other_id_facebook === __id_facebook) {
 			// 자기 자신입니다. 검사하지 않습니다
 			continue;
 		}
-		var other_google_id = input_nickname_jq.attr("__google_id");
-		if(other_google_id === __google_id) {
+		var other_id_google = input_nickname_jq.attr("__id_google");
+		if(other_id_google === __id_google) {
 			// 자기 자신입니다. 검사하지 않습니다
 			continue;
 		}
@@ -896,8 +896,8 @@ var on_save_nickname = function(input_jq) {
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_INFO_UPDATE)
 	.get(PROPS.PARAM_SET.USER_NICKNAME, cur_nickname)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, __fb_id)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, __google_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, __id_facebook)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, __id_google)
 	;
 
 	var _self = this;
@@ -938,13 +938,13 @@ var on_save_nickname = function(input_jq) {
 	); // ajax done.	
 
 }
-var on_save_facebook_id = function(google_id, facebook_id) {
+var on_save_facebook_id = function(id_google, facebook_id) {
 
 	var request_param_obj = 
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_UPDATE_USER_FACEBOOK_ID)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, facebook_id)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, google_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, facebook_id)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, id_google)
 	;
 
 	var _self = this;
@@ -968,8 +968,8 @@ var on_save_facebook_id = function(google_id, facebook_id) {
 
 				_link.refresh_post(
 					_param
-					.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, PROPS.FACEBOOK_USER_ID)
-					.get(PROPS.PARAM_SET.GOOGLE_USER_ID, PROPS.GOOGLE_USER_ID)
+					.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, PROPS.USER_ID_FACEBOOK)
+					.get(PROPS.PARAM_SET.USER_ID_GOOGLE, PROPS.USER_ID_GOOGLE)
 					.get(PROPS.PARAM_SET.QUIZ_REGION, PROPS.QUIZ_REGION)
 				);
 			},
@@ -987,8 +987,8 @@ input_facebook_id_jq.keyup(function( event ) {
 
 	if(event.which === 13) {
 		// ENTER KEY
-		var google_id = _self_jq.attr("__google_id");
-		if(_v.is_not_valid_str(google_id)) {
+		var id_google = _self_jq.attr("__id_google");
+		if(_v.is_not_valid_str(id_google)) {
 			return;
 		}
 
@@ -997,7 +997,7 @@ input_facebook_id_jq.keyup(function( event ) {
 			return;
 		}
 
-		on_save_facebook_id(google_id, facebook_id);
+		on_save_facebook_id(id_google, facebook_id);
 	}
 
 });
@@ -1007,8 +1007,8 @@ input_facebook_id_btn_ok_jq.click(function(){
 	var _self_jq = $(this);
 	var input_jq = _self_jq.parent().parent().find("input");
 
-	var google_id = input_jq.attr("__google_id");
-	if(_v.is_not_valid_str(google_id)) {
+	var id_google = input_jq.attr("__id_google");
+	if(_v.is_not_valid_str(id_google)) {
 		return;
 	}
 
@@ -1017,7 +1017,7 @@ input_facebook_id_btn_ok_jq.click(function(){
 		return;
 	}
 
-	on_save_facebook_id(google_id, facebook_id);
+	on_save_facebook_id(id_google, facebook_id);
 
 });
 
@@ -1026,7 +1026,7 @@ var on_save_email_id = function(facebook_id, user_email) {
 	var request_param_obj = 
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_UPDATE_USER_EMAIL)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, facebook_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, facebook_id)
 	.get(PROPS.PARAM_SET.USER_EMAIL, user_email)
 	;
 
@@ -1054,8 +1054,8 @@ var on_save_email_id = function(facebook_id, user_email) {
 
 				_link.refresh_post(
 					_param
-					.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, PROPS.FACEBOOK_USER_ID)
-					.get(PROPS.PARAM_SET.GOOGLE_USER_ID, PROPS.GOOGLE_USER_ID)
+					.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, PROPS.USER_ID_FACEBOOK)
+					.get(PROPS.PARAM_SET.USER_ID_GOOGLE, PROPS.USER_ID_GOOGLE)
 					.get(PROPS.PARAM_SET.QUIZ_REGION, PROPS.QUIZ_REGION)
 				);
 			},
@@ -1072,7 +1072,7 @@ input_email_jq.keyup(function( event ) {
 
 	if(event.which === 13) {
 		var new_email = _self_jq.val();
-		var facebook_id = _self_jq.attr("__fb_id");
+		var facebook_id = _self_jq.attr("__id_facebook");
 
 		on_save_email_id(facebook_id, new_email);
 	}
@@ -1084,7 +1084,7 @@ input_email_btn_ok_jq.click(function(e) {
 	var _self_jq = $(this);
 	var input_jq = _self_jq.parent().parent().find("input");
 	var new_email = input_jq.val();
-	var facebook_id = input_jq.attr("__fb_id");
+	var facebook_id = input_jq.attr("__id_facebook");
 
 	if(_v.is_not_valid_str(new_email)) {
 		return;
@@ -1143,8 +1143,8 @@ btn_off_category_access_jq_arr.click(function(e){
 	var request_param_obj = 
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_CATEGORY_ACCESS_UPDATE_TOGGLE)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, fb_user_id)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, google_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, fb_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, google_user_id)
 	.get(PROPS.PARAM_SET.QUIZ_REGION, region)
 	.get(PROPS.PARAM_SET.QUIZ_LANGUAGE, language)
 	.get(PROPS.PARAM_SET.USER_ACCESS_STATUS, USER_ACCESS_STATUS)
@@ -1218,8 +1218,8 @@ btn_on_category_access_jq_arr.click(function(e){
 	var request_param_obj = 
 	_param
 	.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_CATEGORY_ACCESS_UPDATE_TOGGLE)
-	.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, fb_user_id)
-	.get(PROPS.PARAM_SET.GOOGLE_USER_ID, google_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, fb_user_id)
+	.get(PROPS.PARAM_SET.USER_ID_GOOGLE, google_user_id)
 	.get(PROPS.PARAM_SET.QUIZ_REGION, region)
 	.get(PROPS.PARAM_SET.QUIZ_LANGUAGE, language)
 	.get(PROPS.PARAM_SET.USER_ACCESS_STATUS, USER_ACCESS_STATUS)

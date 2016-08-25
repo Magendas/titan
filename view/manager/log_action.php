@@ -21,8 +21,8 @@
 			TitanLinkManager::$ADMIN_LOG_IN
 			// param_arr
 			,array(
-				"FACEBOOK_USER_ID"=>$PROPS->FACEBOOK_USER_ID
-				,"GOOGLE_USER_ID"=>$PROPS->GOOGLE_USER_ID
+				"USER_ID_FACEBOOK"=>$PROPS->USER_ID_FACEBOOK
+				,"USER_ID_GOOGLE"=>$PROPS->USER_ID_GOOGLE
 				,"REASON"=>$PROPS->ERROR
 			)
 		);

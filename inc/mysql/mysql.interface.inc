@@ -115,7 +115,7 @@ class MYSQLInterface{
 
 
 
-  	public function select_user_by_fb_id($param=null) {
+  	public function select_user_by_id_facebook($param=null) {
 
 		// CHECK PARAM VALIDATION - INIT
 		$is_not_valid = 
@@ -124,7 +124,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->FACEBOOK_USER_ID
+				$this->var_name->USER_ID_FACEBOOK
 			)
 			// $feedback_manager=null
 			, $this->feedback_manager
@@ -135,7 +135,7 @@ class MYSQLInterface{
 			return;
 		}
 
-		$FACEBOOK_USER_ID = $param->{$this->var_name->FACEBOOK_USER_ID};
+		$USER_ID_FACEBOOK = $param->{$this->var_name->USER_ID_FACEBOOK};
 		// CHECK PARAM VALIDATION - DONE
 
 		$query_manager = $this->get_query_manager(__FUNCTION__);
@@ -148,8 +148,8 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`mobile` AS __mobile,"
 				,"`USER`.`email` AS __email,"
 				,"`USER`.`password` AS __password,"
@@ -158,7 +158,7 @@ class MYSQLInterface{
 				,"`USER`.`date_created` AS __date_created,"
 				,"`USER`.`date_updated` AS __date_updated"
 				,"FROM `USER`"
-				,"WHERE `USER`.`fb_id`=\"$FACEBOOK_USER_ID\""
+				,"WHERE `USER`.`id_facebook`=\"$USER_ID_FACEBOOK\""
 			)
 		);
 		$query_manager->select_one();
@@ -171,7 +171,7 @@ class MYSQLInterface{
 		return $result;
 	}
 
-  	public function select_user_by_google_id($param=null) {
+  	public function select_user_by_id_google($param=null) {
 
 		// CHECK PARAM VALIDATION - INIT
 		$is_not_valid = 
@@ -180,7 +180,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->GOOGLE_USER_ID
+				$this->var_name->USER_ID_GOOGLE
 			)
 			// $feedback_manager=null
 			, $this->feedback_manager
@@ -191,7 +191,7 @@ class MYSQLInterface{
 			return;
 		}
 
-		$GOOGLE_USER_ID = $param->{$this->var_name->GOOGLE_USER_ID};
+		$USER_ID_GOOGLE = $param->{$this->var_name->USER_ID_GOOGLE};
 		// CHECK PARAM VALIDATION - DONE
 
 
@@ -205,8 +205,8 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`mobile` AS __mobile,"
 				,"`USER`.`email` AS __email,"
 				,"`USER`.`password` AS __password,"
@@ -215,7 +215,7 @@ class MYSQLInterface{
 				,"`USER`.`date_created` AS __date_created,"
 				,"`USER`.`date_updated` AS __date_updated"
 				,"FROM `USER`"
-				,"WHERE `USER`.`google_id`=\"$GOOGLE_USER_ID\""
+				,"WHERE `USER`.`id_google`=\"$USER_ID_GOOGLE\""
 			)
 		);
 		$query_manager->select_one();
@@ -228,7 +228,7 @@ class MYSQLInterface{
 		return $result;
 	}	
 
-  	public function select_user_by_kakao_id($param=null) {
+  	public function select_user_by_id_kakao($param=null) {
 
   		// need to implement
   		return null;
@@ -240,7 +240,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->GOOGLE_USER_ID
+				$this->var_name->USER_ID_GOOGLE
 			)
 			// $feedback_manager=null
 			, $this->feedback_manager
@@ -251,7 +251,7 @@ class MYSQLInterface{
 			return;
 		}
 
-		$GOOGLE_USER_ID = $param->{$this->var_name->GOOGLE_USER_ID};
+		$USER_ID_GOOGLE = $param->{$this->var_name->USER_ID_GOOGLE};
 		// CHECK PARAM VALIDATION - DONE
 
 
@@ -265,8 +265,8 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`mobile` AS __mobile,"
 				,"`USER`.`email` AS __email,"
 				,"`USER`.`password` AS __password,"
@@ -275,7 +275,7 @@ class MYSQLInterface{
 				,"`USER`.`date_created` AS __date_created,"
 				,"`USER`.`date_updated` AS __date_updated"
 				,"FROM `USER`"
-				,"WHERE `USER`.`google_id`=\"$GOOGLE_USER_ID\""
+				,"WHERE `USER`.`id_google`=\"$USER_ID_GOOGLE\""
 			)
 		);
 		$query_manager->select_one();
@@ -320,8 +320,8 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`mobile` AS __mobile,"
 				,"`USER`.`email` AS __email,"
 				,"`USER`.`quota` AS __quota"
@@ -372,8 +372,8 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`mobile` AS __mobile,"
 				,"`USER`.`email` AS __email,"
 				,"`USER`.`password` AS __password,"
@@ -428,8 +428,8 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`mobile` AS __mobile,"
 				,"`USER`.`email` AS __email,"
 				,"`USER`.`password` AS __password,"
@@ -483,8 +483,8 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`mobile` AS __mobile,"
 				,"`USER`.`email` AS __email,"
 				,"`USER`.`password` AS __password,"
@@ -506,7 +506,7 @@ class MYSQLInterface{
 		return $result;
 	}	
 
-  	public function select_user_simple_by_fb_id($param=null) {
+  	public function select_user_simple_by_id_facebook($param=null) {
 
 		// CHECK PARAM VALIDATION - INIT
 		$is_not_valid = 
@@ -515,7 +515,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->FACEBOOK_USER_ID
+				$this->var_name->USER_ID_FACEBOOK
 			)
 			// $feedback_manager=null
 			, $this->feedback_manager
@@ -526,7 +526,7 @@ class MYSQLInterface{
 			return;
 		}
 
-		$FACEBOOK_USER_ID = $param->{$this->var_name->FACEBOOK_USER_ID};
+		$USER_ID_FACEBOOK = $param->{$this->var_name->USER_ID_FACEBOOK};
 		// CHECK PARAM VALIDATION - DONE		
 
 		$query_manager = $this->get_query_manager(__FUNCTION__);
@@ -539,12 +539,12 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`quota` AS __quota,"
 				,"`USER`.`category_access` AS __category_access"
 				,"FROM `USER`"
-				,"WHERE `USER`.`fb_id`=\"$FACEBOOK_USER_ID\""
+				,"WHERE `USER`.`id_facebook`=\"$USER_ID_FACEBOOK\""
 			)			
 		);
 		$query_manager->select_one();
@@ -557,7 +557,7 @@ class MYSQLInterface{
 		return $result;
 	} 
 
-	public function select_user_simple_by_google_id($param=null) {
+	public function select_user_simple_by_id_google($param=null) {
 
 		// CHECK PARAM VALIDATION - INIT
 		$is_not_valid = 
@@ -566,7 +566,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->GOOGLE_USER_ID
+				$this->var_name->USER_ID_GOOGLE
 			)
 			// $feedback_manager=null
 			, $this->feedback_manager
@@ -577,7 +577,7 @@ class MYSQLInterface{
 			return;
 		}
 
-		$GOOGLE_USER_ID = $param->{$this->var_name->GOOGLE_USER_ID};
+		$USER_ID_GOOGLE = $param->{$this->var_name->USER_ID_GOOGLE};
 		// CHECK PARAM VALIDATION - DONE		
 
 		$query_manager = $this->get_query_manager(__FUNCTION__);
@@ -590,12 +590,12 @@ class MYSQLInterface{
 				,"IFNULL(`USER`.`nickname`,\"\") AS __nickname,"
 				,"`USER`.`status` AS __status,"
 				,"`USER`.`permission` AS __permission,"
-				,"IFNULL(`USER`.`fb_id`, \"\") AS __fb_id,"
-				,"IFNULL(`USER`.`google_id`, \"\") AS __google_id,"
+				,"IFNULL(`USER`.`id_facebook`, \"\") AS __id_facebook,"
+				,"IFNULL(`USER`.`id_google`, \"\") AS __id_google,"
 				,"`USER`.`quota` AS __quota,"
 				,"`USER`.`category_access` AS __category_access"
 				,"FROM `USER`"
-				,"WHERE `USER`.`google_id`=\"$GOOGLE_USER_ID\""
+				,"WHERE `USER`.`id_google`=\"$USER_ID_GOOGLE\""
 			)			
 		);
 		$query_manager->select_one();
@@ -618,7 +618,7 @@ class MYSQLInterface{
 			// $key_arr=null
 			, array(
 				$this->var_name->FACEBOOK_USER_FIRST_NAME
-				, $this->var_name->FACEBOOK_USER_ID
+				, $this->var_name->USER_ID_FACEBOOK
 			)
 			// $feedback_manager=null
 			, $this->feedback_manager
@@ -632,7 +632,7 @@ class MYSQLInterface{
 		$FACEBOOK_USER_FIRST_NAME = $param->{$this->var_name->FACEBOOK_USER_FIRST_NAME};
 		$FACEBOOK_USER_LAST_NAME = $param->{$this->var_name->FACEBOOK_USER_LAST_NAME};
 		$FACEBOOK_USER_EMAIL = $param->{$this->var_name->FACEBOOK_USER_EMAIL}; // CAN BE EMPTY
-		$FACEBOOK_USER_ID = $param->{$this->var_name->FACEBOOK_USER_ID};
+		$USER_ID_FACEBOOK = $param->{$this->var_name->USER_ID_FACEBOOK};
 		$CATEGORY_ACCESS_ARR = $param->{$this->var_name->CATEGORY_ACCESS_ARR};
 		// CHECK PARAM VALIDATION - DONE
 
@@ -654,7 +654,7 @@ class MYSQLInterface{
 				,",`last_name`"
 				,",`nickname`"
 				,",`status`"
-				,",`fb_id`"
+				,",`id_facebook`"
 				,",`email`"
 				,",`password`"
 				,",`date_created`"
@@ -667,7 +667,7 @@ class MYSQLInterface{
 				,",\"$FACEBOOK_USER_LAST_NAME\""
 				,",\"$FACEBOOK_USER_FIRST_NAME\""
 				,",\"$USER_STATUS_AVAILABLE\""
-				,",\"$FACEBOOK_USER_ID\""
+				,",\"$USER_ID_FACEBOOK\""
 				,",\"$FACEBOOK_USER_EMAIL\""
 				,",\"0000\""
 				,",CURRENT_TIMESTAMP"
@@ -697,7 +697,7 @@ class MYSQLInterface{
 			, array(
 				$this->var_name->GOOGLE_USER_FIRST_NAME
 				, $this->var_name->GOOGLE_USER_EMAIL
-				, $this->var_name->GOOGLE_USER_ID
+				, $this->var_name->USER_ID_GOOGLE
 			)
 			// $feedback_manager=null
 			, $this->feedback_manager
@@ -711,7 +711,7 @@ class MYSQLInterface{
 		$GOOGLE_USER_FIRST_NAME = $param->{$this->var_name->GOOGLE_USER_FIRST_NAME};
 		$GOOGLE_USER_LAST_NAME = $param->{$this->var_name->GOOGLE_USER_LAST_NAME};
 		$GOOGLE_USER_EMAIL = $param->{$this->var_name->GOOGLE_USER_EMAIL};
-		$GOOGLE_USER_ID = $param->{$this->var_name->GOOGLE_USER_ID};
+		$USER_ID_GOOGLE = $param->{$this->var_name->USER_ID_GOOGLE};
 		$CATEGORY_ACCESS_ARR = $param->{$this->var_name->CATEGORY_ACCESS_ARR};
 		// CHECK PARAM VALIDATION - DONE
 
@@ -733,7 +733,7 @@ class MYSQLInterface{
 				,",`last_name`"
 				,",`nickname`"
 				,",`status`"
-				,",`google_id`"
+				,",`id_google`"
 				,",`email`"
 				,",`password`"
 				,",`date_created`"
@@ -746,7 +746,7 @@ class MYSQLInterface{
 				,",\"$GOOGLE_USER_LAST_NAME\""
 				,",\"$GOOGLE_USER_FIRST_NAME\""
 				,",\"$USER_STATUS_AVAILABLE\""
-				,",\"$GOOGLE_USER_ID\""
+				,",\"$USER_ID_GOOGLE\""
 				,",\"$GOOGLE_USER_EMAIL\""
 				,",\"0000\""
 				,",CURRENT_TIMESTAMP"
@@ -849,7 +849,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->FACEBOOK_USER_ID
+				$this->var_name->USER_ID_FACEBOOK
 				, $this->var_name->FACEBOOK_USER_PROFILE_PICTURE
 				, $this->var_name->FACEBOOK_USER_GENDER
 				, $this->var_name->FACEBOOK_USER_LOCALE
@@ -864,7 +864,7 @@ class MYSQLInterface{
 			return;
 		}
 
-		$FACEBOOK_USER_ID = $param->{$this->var_name->FACEBOOK_USER_ID};
+		$USER_ID_FACEBOOK = $param->{$this->var_name->USER_ID_FACEBOOK};
 		$FACEBOOK_USER_PROFILE_PICTURE = $param->{$this->var_name->FACEBOOK_USER_PROFILE_PICTURE};
 		$FACEBOOK_USER_GENDER = $param->{$this->var_name->FACEBOOK_USER_GENDER};
 		$FACEBOOK_USER_LOCALE = $param->{$this->var_name->FACEBOOK_USER_LOCALE};
@@ -880,7 +880,7 @@ class MYSQLInterface{
 				,",`age_range`=$FACEBOOK_USER_AGE_RANGE"
 				,",`thumbnail`=\"$FACEBOOK_USER_PROFILE_PICTURE\""
 				,",`date_updated` = CURRENT_TIMESTAMP"
-				," WHERE fb_id=\"$FACEBOOK_USER_ID\""
+				," WHERE id_facebook=\"$USER_ID_FACEBOOK\""
 			)
 		);
 		$query_manager->modify();
@@ -929,7 +929,7 @@ class MYSQLInterface{
 
 	}	
 
-	public function update_user_fb_id($param=null) {
+	public function update_user_id_facebook($param=null) {
 
 		// CHECK PARAM VALIDATION - INIT
 		$is_not_valid = 
@@ -938,7 +938,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->FACEBOOK_USER_ID
+				$this->var_name->USER_ID_FACEBOOK
 				, $this->var_name->USER_ID
 			)
 			// $feedback_manager=null
@@ -950,14 +950,14 @@ class MYSQLInterface{
 			return;
 		}
 
-		$FACEBOOK_USER_ID = $param->{$this->var_name->FACEBOOK_USER_ID};
+		$USER_ID_FACEBOOK = $param->{$this->var_name->USER_ID_FACEBOOK};
 		$USER_ID = $param->{$this->var_name->USER_ID};
 		// CHECK PARAM VALIDATION - DONE		
 
 		$query_manager = $this->get_query_manager(__FUNCTION__);
 		$query_manager->addQueryLineArr(
 			array(
-				"UPDATE `USER` SET `date_updated` = CURRENT_TIMESTAMP, fb_id=\"$FACEBOOK_USER_ID\" WHERE id=$USER_ID"
+				"UPDATE `USER` SET `date_updated` = CURRENT_TIMESTAMP, id_facebook=\"$USER_ID_FACEBOOK\" WHERE id=$USER_ID"
 			)
 		);
 		$query_manager->modify();
@@ -1005,7 +1005,7 @@ class MYSQLInterface{
 
 	}	
 
-	public function update_user_google_id($param=null) {
+	public function update_user_id_google($param=null) {
 
 		// CHECK PARAM VALIDATION - INIT
 		$is_not_valid = 
@@ -1014,7 +1014,7 @@ class MYSQLInterface{
 			$param
 			// $key_arr=null
 			, array(
-				$this->var_name->GOOGLE_USER_ID
+				$this->var_name->USER_ID_GOOGLE
 				, $this->var_name->USER_ID
 			)
 			// $feedback_manager=null
@@ -1026,14 +1026,14 @@ class MYSQLInterface{
 			return;
 		}
 
-		$GOOGLE_USER_ID = $param->{$this->var_name->GOOGLE_USER_ID};
+		$USER_ID_GOOGLE = $param->{$this->var_name->USER_ID_GOOGLE};
 		$USER_ID = $param->{$this->var_name->USER_ID};
 		// CHECK PARAM VALIDATION - DONE		
 
 		$query_manager = $this->get_query_manager(__FUNCTION__);
 		$query_manager->addQueryLineArr(
 			array(
-				"UPDATE `USER` SET `date_updated` = CURRENT_TIMESTAMP, google_id=\"$GOOGLE_USER_ID\" WHERE id=$USER_ID"
+				"UPDATE `USER` SET `date_updated` = CURRENT_TIMESTAMP, id_google=\"$USER_ID_GOOGLE\" WHERE id=$USER_ID"
 			)
 		);
 		$query_manager->modify();
@@ -1103,10 +1103,10 @@ class MYSQLInterface{
 			$user_info_obj = $this->select_user_by_id($param);
 			if(!is_null($user_info_obj)) {
 				
-				if(!empty($user_info_obj->__fb_id)) {
-					$platform_id = $user_info_obj->__fb_id;
-				} else if(!empty($user_info_obj->__google_id)) {
-					$platform_id = $user_info_obj->__google_id;
+				if(!empty($user_info_obj->__id_facebook)) {
+					$platform_id = $user_info_obj->__id_facebook;
+				} else if(!empty($user_info_obj->__id_google)) {
+					$platform_id = $user_info_obj->__id_google;
 				}   // end inner if
 
 			}  // end inner if
@@ -1174,10 +1174,10 @@ class MYSQLInterface{
 			$user_info_obj = $this->select_user_by_id($param);
 			if(!is_null($user_info_obj)) {
 				
-				if(!empty($user_info_obj->__fb_id)) {
-					$platform_id = $user_info_obj->__fb_id;
-				} else if(!empty($user_info_obj->__google_id)) {
-					$platform_id = $user_info_obj->__google_id;
+				if(!empty($user_info_obj->__id_facebook)) {
+					$platform_id = $user_info_obj->__id_facebook;
+				} else if(!empty($user_info_obj->__id_google)) {
+					$platform_id = $user_info_obj->__id_google;
 				}   // end inner if
 
 			}  // end inner if
@@ -1298,10 +1298,10 @@ class MYSQLInterface{
 			$user_info_obj = $this->select_user_by_id($param);
 			if(!is_null($user_info_obj)) {
 				
-				if(!empty($user_info_obj->__fb_id)) {
-					$platform_id = $user_info_obj->__fb_id;
-				} else if(!empty($user_info_obj->__google_id)) {
-					$platform_id = $user_info_obj->__google_id;
+				if(!empty($user_info_obj->__id_facebook)) {
+					$platform_id = $user_info_obj->__id_facebook;
+				} else if(!empty($user_info_obj->__id_google)) {
+					$platform_id = $user_info_obj->__id_google;
 				}   // end inner if
 
 			}  // end inner if
@@ -1370,10 +1370,10 @@ class MYSQLInterface{
 			$user_info_obj = $this->select_user_by_id($param);
 			if(!is_null($user_info_obj)) {
 				
-				if(!empty($user_info_obj->__fb_id)) {
-					$platform_id = $user_info_obj->__fb_id;
-				} else if(!empty($user_info_obj->__google_id)) {
-					$platform_id = $user_info_obj->__google_id;
+				if(!empty($user_info_obj->__id_facebook)) {
+					$platform_id = $user_info_obj->__id_facebook;
+				} else if(!empty($user_info_obj->__id_google)) {
+					$platform_id = $user_info_obj->__id_google;
 				}   // end inner if
 
 			}  // end inner if

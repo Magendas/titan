@@ -41,7 +41,7 @@ var googleSDK = {
 		var google_profile_image = profile.getImageUrl();	
 		var response_parsed = 
 		_param
-		.get(PROPS.PARAM_SET.GOOGLE_USER_ID_TO_ENCODE_MD5,google_user_id)
+		.get(PROPS.PARAM_SET.USER_ID_GOOGLE_TO_ENCODE_MD5,google_user_id)
 		.get(PROPS.PARAM_SET.GOOGLE_USER_EMAIL,google_user_email)
 		.get(PROPS.PARAM_SET.GOOGLE_USER_FIRST_NAME,google_user_first_name)
 		.get(PROPS.PARAM_SET.GOOGLE_USER_LAST_NAME,google_user_last_name)

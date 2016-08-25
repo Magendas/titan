@@ -60,14 +60,14 @@ class MYSQLFeedback{
 		$ERROR_TYPE = MYSQLFeedback::$FEEDBACK_EVENT_ERROR;
 		$ERROR_MSG = json_encode($error_std);
 
-		$QUERY_PARAM = new stdClass();
-		$QUERY_PARAM->{$param->CLIENT_IP} = $CLIENT_IP;
-		$QUERY_PARAM->{$param->CLIENT_OS} = $CLIENT_OS;
-		$QUERY_PARAM->{$param->CLIENT_BROWSER} = $CLIENT_BROWSER;
-		$QUERY_PARAM->{$param->ERROR_TYPE} = $ERROR_TYPE;
-		$QUERY_PARAM->{$param->ERROR_MSG} = $ERROR_MSG;
+		$REQ_PARAM = new stdClass();
+		$REQ_PARAM->{$param->CLIENT_IP} = $CLIENT_IP;
+		$REQ_PARAM->{$param->CLIENT_OS} = $CLIENT_OS;
+		$REQ_PARAM->{$param->CLIENT_BROWSER} = $CLIENT_BROWSER;
+		$REQ_PARAM->{$param->ERROR_TYPE} = $ERROR_TYPE;
+		$REQ_PARAM->{$param->ERROR_MSG} = $ERROR_MSG;
 
-		$this->mysql_interface->insert_error_log($QUERY_PARAM);
+		$this->mysql_interface->insert_error_log($REQ_PARAM);
 	}
 
 	public static $FEEDBACK_EVENT_OK="OK";						// MYSQLFeedback::$FEEDBACK_EVENT_OK
@@ -83,7 +83,7 @@ class MYSQLFeedback{
 
 	public static $FEEDBACK_QUERY="QUERY";						// MYSQLFeedback::$FEEDBACK_QUERY
 	public static $FEEDBACK_QUERY_ROW="QUERY_ROW";				// MYSQLFeedback::$FEEDBACK_QUERY_ROW
-	public static $FEEDBACK_QUERY_PARAM="QUERY_PARAM";			// MYSQLFeedback::$FEEDBACK_QUERY_PARAM
+	public static $FEEDBACK_REQ_PARAM="REQ_PARAM";			// MYSQLFeedback::$FEEDBACK_REQ_PARAM
 
 	public static $FEEDBACK_MESSAGE="MESSAGE";					// MYSQLFeedback::$FEEDBACK_MESSAGE
 	public static $FEEDBACK_SCOPE="SCOPE";						// MYSQLFeedback::$FEEDBACK_SCOPE

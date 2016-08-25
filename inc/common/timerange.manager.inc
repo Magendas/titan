@@ -19,17 +19,17 @@ class TimeRangeManager{
 		$this->title = $title;
 
 		// 입력하지 않았을 때는 시작은 오늘, 종료일은 일주일 전으로 합니다.
-		$QUIZ_START_DATE = $param->get_param_string($param->QUIZ_START_DATE, TimeManager::get_days_ago(5));
-		if(!empty($QUIZ_START_DATE)) {
-			$result->{$param->QUIZ_START_DATE} = $QUIZ_START_DATE;
+		$QUIZ_DATE_START = $param->get_param_string($param->QUIZ_DATE_START, TimeManager::get_days_ago(5));
+		if(!empty($QUIZ_DATE_START)) {
+			$result->{$param->QUIZ_DATE_START} = $QUIZ_DATE_START;
 		}		
-		$QUIZ_END_DATE = $param->get_param_string($param->QUIZ_END_DATE, TimeManager::get_now_YYYYMMDD());
-		if(!empty($QUIZ_END_DATE)) {
-			$result->{$param->QUIZ_END_DATE} = $QUIZ_END_DATE;
+		$QUIZ_DATE_END = $param->get_param_string($param->QUIZ_DATE_END, TimeManager::get_now_YYYYMMDD());
+		if(!empty($QUIZ_DATE_END)) {
+			$result->{$param->QUIZ_DATE_END} = $QUIZ_DATE_END;
 		}
-		$QUIZ_END_DATE_DAY_AFTER = TimeManager::get_days_after(1, $QUIZ_END_DATE); // $QUIZ_END_DATE_DAY_AFTER
-		if(!empty($QUIZ_END_DATE_DAY_AFTER)) {
-			$result->{$param->QUIZ_END_DATE_DAY_AFTER} = $QUIZ_END_DATE_DAY_AFTER;
+		$QUIZ_DATE_END_DAY_AFTER = TimeManager::get_days_after(1, $QUIZ_DATE_END); // $QUIZ_DATE_END_DAY_AFTER
+		if(!empty($QUIZ_DATE_END_DAY_AFTER)) {
+			$result->{$param->QUIZ_DATE_END_DAY_AFTER} = $QUIZ_DATE_END_DAY_AFTER;
 		}
 
 

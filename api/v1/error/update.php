@@ -30,23 +30,23 @@
 	$CLIENT_BROWSER = Checker::get_client_browser();
 
 	// DEBUG
-	$QUERY_PARAM->{$param->EVENT_TYPE} = $EVENT_TYPE;
-	$QUERY_PARAM->{$param->ERROR_MSG} = $ERROR_MSG;
+	$REQ_PARAM->{$param->EVENT_TYPE} = $EVENT_TYPE;
+	$REQ_PARAM->{$param->ERROR_MSG} = $ERROR_MSG;
 
-	$QUERY_PARAM->{$param->CLIENT_IP} = $CLIENT_IP;
-	$QUERY_PARAM->{$param->CLIENT_OS} = $CLIENT_OS;
-	$QUERY_PARAM->{$param->CLIENT_BROWSER} = $CLIENT_BROWSER;
+	$REQ_PARAM->{$param->CLIENT_IP} = $CLIENT_IP;
+	$REQ_PARAM->{$param->CLIENT_OS} = $CLIENT_OS;
+	$REQ_PARAM->{$param->CLIENT_BROWSER} = $CLIENT_BROWSER;
 
 	// @ required
-	$QUERY_PARAM = $param->get_valid_value_set($QUERY_PARAM); // 유효한 값을 가지고 있는 필드만 남기고 모두 제거합니다.
-	$feedback_manager->add_custom_key_value($param->QUERY_PARAM, $QUERY_PARAM);
+	$REQ_PARAM = $param->get_valid_value_set($REQ_PARAM); // 유효한 값을 가지고 있는 필드만 남기고 모두 제거합니다.
+	$feedback_manager->add_custom_key_value($param->REQ_PARAM, $REQ_PARAM);
 
 
 	// CHECK VALIDATION - INIT
 	$is_not_valid = 
 	$param->is_not_valid(
 		// $param_std=null
-		$QUERY_PARAM
+		$REQ_PARAM
 		// $key_arr=null
 		, array(
 			$param->SCOPE
@@ -69,7 +69,7 @@
 	if(strcmp($EVENT_TYPE, $param->EVENT_TYPE_INSERT_ERROR_MSG) == 0) {
 
 		// check already registered quiz.
-		$mysql_interface->insert_error_log($QUERY_PARAM);
+		$mysql_interface->insert_error_log($REQ_PARAM);
 
 	}
 

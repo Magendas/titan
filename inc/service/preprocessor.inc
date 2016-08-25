@@ -127,12 +127,50 @@ class TitanPreprocessor{
 			$this->set_prop_fail($result, "is_null(\$var_name)");
 			return;
 		}
+
+
 		// DEV_PROP
 		$result->{$var_name->DEV_PROPS} = new stdClass();
 
 		$result->{$var_name->DEV_PROPS}->{$var_name->SERVICE_VAR_NAME} = $var_name;
 		$result->{$var_name->DEV_PROPS}->{$var_name->SERVICE_CONST} = $const;
 		$result->{$var_name->DEV_PROPS}->{$var_name->VERSION} = $this->version;
+
+		$REQ_PARAM = new stdClass();
+		$result->{$var_name->DEV_PROPS}->{$var_name->REQ_PARAM} = $REQ_PARAM;
+
+		// TIME & DATE
+		$DATE_START = $param->get_param_string($var_name->DATE_START, TimeManager::get_days_ago(5));
+		if(!empty($DATE_START)) {
+			$REQ_PARAM->{$var_name->DATE_START} = $DATE_START;
+		}		
+		$DATE_END = $param->get_param_string($var_name->DATE_END, TimeManager::get_now_YYYYMMDD());
+		if(!empty($DATE_END)) {
+			$REQ_PARAM->{$var_name->DATE_END} = $DATE_END;
+		}
+		$DATE_END_DAY_AFTER = TimeManager::get_days_after(1, $DATE_END); // $DATE_END_DAY_AFTER
+		if(!empty($DATE_END_DAY_AFTER)) {
+			$REQ_PARAM->{$var_name->DATE_END_DAY_AFTER} = $DATE_END_DAY_AFTER;
+		}
+
+		// PAGINATION
+		$PAGE_NUM = $param->get_param_number($var_name->PAGE_NUM, $const->PAGE_NUM_DEFAULT);
+		if(Checker::is_natural_number($PAGE_NUM)) {
+			$REQ_PARAM->{$var_name->PAGE_NUM} = $PAGE_NUM;
+		}
+		$ROW_CNT = $param->get_param_number($var_name->ROW_CNT, $const->ROW_CNT_DEFAULT);
+		if(Checker::is_natural_number($ROW_CNT)) {
+			$REQ_PARAM->{$var_name->ROW_CNT} = $ROW_CNT;
+		}		
+		$PAGE_RANGE = $param->get_param_number($var_name->PAGE_RANGE, $const->PAGE_RANGE_DEFAULT);
+		if(Checker::is_natural_number($PAGE_RANGE)) {
+			$REQ_PARAM->{$var_name->PAGE_RANGE} = $PAGE_RANGE;
+		}
+		$IS_DESC = $param->get_param_boolean($var_name->IS_DESC, $const->IS_DESC_DEFAULT);
+		if(is_bool($IS_DESC)) {
+			$REQ_PARAM->{$var_name->IS_DESC} = $IS_DESC;
+		}		
+
 
 		// SERVICE_STATUS
 		$result->{$var_name->SERVICE_STATUS} = new stdClass();
@@ -164,30 +202,36 @@ class TitanPreprocessor{
 			$this->set_prop_fail($result, "\$IS_LOG_OUT:$IS_LOG_OUT");
 			return;
 		}
-		
-
 
 
 		// SERVICE_PATH
-		// SERVICE_ROOT_PATH can be empty!
-		$result->{$var_name->SERVICE_ROOT_PATH} = $service_root_path;
+		$result->{$var_name->SERVICE_PATH} = new stdClass();
 
+		if(empty($service_root_path)) {
+			// SERVICE_ROOT_PATH can be empty!
+			$this->set_prop_fail($result, "empty(\$service_root_path)");
+			return;
+		}
+		$result->{$var_name->SERVICE_PATH}->{$var_name->SERVICE_ROOT_PATH} = $service_root_path;
 		if(empty($file_root_path)) {
+			// FILE_ROOT_PATH can be empty!
 			$this->set_prop_fail($result, "empty(\$file_root_path)");
 			return;
 		}
-		$result->{$var_name->FILE_ROOT_PATH} = $file_root_path;
+		$result->{$var_name->SERVICE_PATH}->{$var_name->FILE_ROOT_PATH} = $file_root_path;
 
 		if(is_null($permission_arr)) {
 			$permission_arr = array();
 		}
 
-
-
-
-		// HEAD_FILE_PATH - DEFAULT
 		$HEAD_FILE_PATH = "$file_root_path/template/head.include.template";
-		$result->{$var_name->HEAD_FILE_PATH} = $HEAD_FILE_PATH;
+		$result->{$var_name->SERVICE_PATH}->{$var_name->HEAD_FILE_PATH} = $HEAD_FILE_PATH;
+
+		$NAV_FILE_PATH = "$file_root_path/template/nav.user.template";
+		$result->{$var_name->SERVICE_PATH}->{$var_name->NAV_FILE_PATH} = $NAV_FILE_PATH;
+
+		// SERVICE_VIEW
+		$result->{$var_name->SERVICE_VIEW} = new stdClass();
 
 		$view_port = $const->DEVICE_REPONSIVE_VIEW_PORT;
 		$HEAD_VIEW_RENDER_VAR_ARR = 
@@ -195,7 +239,8 @@ class TitanPreprocessor{
 			"[__ROOT_PATH__]"=>$service_root_path
 			, "[__VIEW_PORT__]"=>$view_port
 		);
-		$result->{$var_name->HEAD_VIEW_RENDER_VAR_ARR} = $HEAD_VIEW_RENDER_VAR_ARR;
+		$result->{$var_name->SERVICE_VIEW}->{$var_name->HEAD_VIEW_RENDER_VAR_ARR} = 
+		$HEAD_VIEW_RENDER_VAR_ARR;
 
 		$view_port = $const->DEVICE_REPONSIVE_VIEW_PORT;
 		if($IS_MOBILE) {
@@ -206,101 +251,117 @@ class TitanPreprocessor{
 			"[__ROOT_PATH__]"=>$service_root_path
 			, "[__VIEW_PORT__]"=>$view_port
 		);
-		$result->{$var_name->HEAD_VIEW_RENDER_VAR_ARR_FORCE_PC_VIEW} = $HEAD_VIEW_RENDER_VAR_ARR_FORCE_PC_VIEW;
+		$result->{$var_name->SERVICE_VIEW}->{$var_name->HEAD_VIEW_RENDER_VAR_ARR_FORCE_PC_VIEW} = 
+		$HEAD_VIEW_RENDER_VAR_ARR_FORCE_PC_VIEW;
 
-		// NAV_FILE_PATH - DEFAULT
-		$NAV_FILE_PATH = "$file_root_path/template/nav.user.template";
-		$result->{$var_name->NAV_FILE_PATH} = $NAV_FILE_PATH;
+
+
+
 
 
 
 		// 아래와 같은 사전 작업을 진행합니다. 
+		$result->{$var_name->USER} = new stdClass();
 
 		// 1. Log in check with cookie
-		// FACEBOOK ID? or GOOGLE ID?
+		// FACEBOOK ID? or GOOGLE ID? or KAKAO ID?
 		$USER_INFO = null;
 
-		$FACEBOOK_USER_ID = $param->get_param_string($var_name->FACEBOOK_USER_ID);
-		$GOOGLE_USER_ID = $param->get_param_string($var_name->GOOGLE_USER_ID);
-		$KAKAO_USER_ID = $param->get_param_string($var_name->KAKAO_USER_ID);
+		$USER_ID_FACEBOOK = $param->get_param_string($var_name->USER_ID_FACEBOOK);
+		$result->{$var_name->USER}->{$var_name->USER_ID_FACEBOOK} = $USER_ID_FACEBOOK;
 
-		$QUERY_PARAM = new stdClass();
-		$result->{$var_name->QUERY_PARAM} = $QUERY_PARAM;
+		$USER_ID_GOOGLE = $param->get_param_string($var_name->USER_ID_GOOGLE);
+		$result->{$var_name->USER}->{$var_name->USER_ID_GOOGLE} = $USER_ID_GOOGLE;
 
-		// 1-1. 쿠키에서 FACEBOOK_USER_ID로 유저 정보를 가져옵니다.
+		$USER_ID_KAKAO = $param->get_param_string($var_name->USER_ID_KAKAO);
+		$result->{$var_name->USER}->{$var_name->USER_ID_KAKAO} = $USER_ID_KAKAO;
+
+		// 1-1. 쿠키에서 USER_ID_FACEBOOK로 유저 정보를 가져옵니다.
 		$COOKIE_LOGIN_FACEBOOK = CookieManager::getCookie($var_name->COOKIE_LOGIN_FACEBOOK);
 		if(!empty($COOKIE_LOGIN_FACEBOOK)) {
 
-			$result->{$var_name->COOKIE_LOGIN_FACEBOOK} = $COOKIE_LOGIN_FACEBOOK;
+			$result->{$var_name->USER}->{$var_name->COOKIE_LOGIN_FACEBOOK} = $COOKIE_LOGIN_FACEBOOK;
 
-			$QUERY_PARAM->{$var_name->FACEBOOK_USER_ID} = $COOKIE_LOGIN_FACEBOOK;
-			$USER_INFO = $mysql_interface->select_user_by_fb_id($QUERY_PARAM);
+			$REQ_PARAM->{$var_name->USER_ID_FACEBOOK} = $COOKIE_LOGIN_FACEBOOK;
+			$result->{$var_name->USER}->{$var_name->USER_ID_FACEBOOK} = $COOKIE_LOGIN_FACEBOOK;
+
+			$USER_INFO = $mysql_interface->select_user_by_id_facebook($REQ_PARAM);
 
 			if(!is_null($USER_INFO)) {
-				$FACEBOOK_USER_ID = $COOKIE_LOGIN_FACEBOOK;
+				$USER_ID_FACEBOOK = $COOKIE_LOGIN_FACEBOOK;
 			} 
 		}
-		// 1-2. 파라미터로 전달받은 FACEBOOK_USER_ID로 유저 정보를 가져옵니다.
-		if(is_null($USER_INFO) && !empty($FACEBOOK_USER_ID)) {
-			$QUERY_PARAM->{$var_name->FACEBOOK_USER_ID} = $FACEBOOK_USER_ID;
-			$USER_INFO = $mysql_interface->select_user_by_fb_id($QUERY_PARAM);
+		// 1-2. 파라미터로 전달받은 USER_ID_FACEBOOK로 유저 정보를 가져옵니다.
+		if(is_null($USER_INFO) && !empty($USER_ID_FACEBOOK)) {
+			$REQ_PARAM->{$var_name->USER_ID_FACEBOOK} = $USER_ID_FACEBOOK;
+			$result->{$var_name->USER}->{$var_name->USER_ID_FACEBOOK} = $USER_ID_FACEBOOK;
+
+			$USER_INFO = $mysql_interface->select_user_by_id_facebook($REQ_PARAM);
 		}
-		// 1-3. 파라미터로 전달받은 FACEBOOK_USER_ID로 유저 정보를 가져옵니다.
-		if(!empty($FACEBOOK_USER_ID)) {
-			$result->{$var_name->FACEBOOK_USER_ID} = $FACEBOOK_USER_ID;
+		// 1-3. 파라미터로 전달받은 USER_ID_FACEBOOK로 유저 정보를 가져옵니다.
+		if(!empty($USER_ID_FACEBOOK)) {
+			$result->{$var_name->USER}->{$var_name->USER_ID_FACEBOOK} = $USER_ID_FACEBOOK;
 		}
 
 
-		// 2-1. 쿠키에서 GOOGLE_USER_ID로 유저 정보를 가져옵니다.
+		// 2-1. 쿠키에서 USER_ID_GOOGLE로 유저 정보를 가져옵니다.
 		$COOKIE_LOGIN_GOOGLE = CookieManager::getCookie($var_name->COOKIE_LOGIN_GOOGLE);
 		if(!empty($COOKIE_LOGIN_GOOGLE)) {
 
-			$result->{$var_name->COOKIE_LOGIN_GOOGLE} = $COOKIE_LOGIN_GOOGLE;
+			$result->{$var_name->USER}->{$var_name->COOKIE_LOGIN_GOOGLE} = $COOKIE_LOGIN_GOOGLE;
 
-			$QUERY_PARAM->{$var_name->GOOGLE_USER_ID} = $COOKIE_LOGIN_GOOGLE;
-			$USER_INFO = $mysql_interface->select_user_by_google_id($QUERY_PARAM);
+			$REQ_PARAM->{$var_name->USER_ID_GOOGLE} = $COOKIE_LOGIN_GOOGLE;
+			$result->{$var_name->USER}->{$var_name->USER_ID_GOOGLE} = $COOKIE_LOGIN_GOOGLE;
+
+			$USER_INFO = $mysql_interface->select_user_by_id_google($REQ_PARAM);
 
 			if(!is_null($USER_INFO)) {
-				$GOOGLE_USER_ID = $COOKIE_LOGIN_GOOGLE;
+				$USER_ID_GOOGLE = $COOKIE_LOGIN_GOOGLE;
 			} 
 		}
-		// 2-2. 파라미터로 전달받은 GOOGLE_USER_ID 유저 정보를 가져옵니다.
-		if(is_null($USER_INFO) && !empty($GOOGLE_USER_ID)) {
-			$QUERY_PARAM->{$var_name->GOOGLE_USER_ID} = $GOOGLE_USER_ID;
-			$USER_INFO = $mysql_interface->select_user_by_google_id($QUERY_PARAM);
+		// 2-2. 파라미터로 전달받은 USER_ID_GOOGLE 유저 정보를 가져옵니다.
+		if(is_null($USER_INFO) && !empty($USER_ID_GOOGLE)) {
+			$REQ_PARAM->{$var_name->USER_ID_GOOGLE} = $USER_ID_GOOGLE;
+			$result->{$var_name->USER}->{$var_name->USER_ID_GOOGLE} = $USER_ID_GOOGLE;
+
+			$USER_INFO = $mysql_interface->select_user_by_id_google($REQ_PARAM);
 		}
 		// 2-3.
-		if(!empty($GOOGLE_USER_ID)) {
-			$result->{$var_name->GOOGLE_USER_ID} = $GOOGLE_USER_ID;	
+		if(!empty($USER_ID_GOOGLE)) {
+			$result->{$var_name->USER}->{$var_name->USER_ID_GOOGLE} = $USER_ID_GOOGLE;	
 		}
 
 
 
-		// 1-3. 쿠키에서 KAKAO_USER_ID로 유저 정보를 가져옵니다.
+		// 3-1. 쿠키에서 USER_ID_KAKAO로 유저 정보를 가져옵니다.
 		$COOKIE_LOGIN_KAKAO = CookieManager::getCookie($var_name->COOKIE_LOGIN_KAKAO);
 		if(!empty($COOKIE_LOGIN_KAKAO)) {
 
-			$result->{$var_name->COOKIE_LOGIN_KAKAO} = $COOKIE_LOGIN_KAKAO;
+			$result->{$var_name->USER}->{$var_name->COOKIE_LOGIN_KAKAO} = $COOKIE_LOGIN_KAKAO;
 
-			$QUERY_PARAM->{$var_name->KAKAO_USER_ID} = $COOKIE_LOGIN_KAKAO;
-			$USER_INFO = $mysql_interface->select_user_by_google_id($QUERY_PARAM);
+			$REQ_PARAM->{$var_name->USER_ID_KAKAO} = $COOKIE_LOGIN_KAKAO;
+			$result->{$var_name->USER}->{$var_name->USER_ID_KAKAO} = $COOKIE_LOGIN_KAKAO;
+
+			$USER_INFO = $mysql_interface->select_user_by_id_kakao($REQ_PARAM);
 
 			if(!is_null($USER_INFO)) {
-				$KAKAO_USER_ID = $COOKIE_LOGIN_KAKAO;
+				$USER_ID_KAKAO = $COOKIE_LOGIN_KAKAO;
 			} 
 		}
-		// 2-2. 파라미터로 전달받은 KAKAO_USER_ID 유저 정보를 가져옵니다.
-		if(is_null($USER_INFO) && !empty($KAKAO_USER_ID)) {
-			$QUERY_PARAM->{$var_name->KAKAO_USER_ID} = $KAKAO_USER_ID;
-			$USER_INFO = $mysql_interface->select_user_by_kakao_id($QUERY_PARAM);
+		// 3-2. 파라미터로 전달받은 USER_ID_KAKAO 유저 정보를 가져옵니다.
+		if(is_null($USER_INFO) && !empty($USER_ID_KAKAO)) {
+			$REQ_PARAM->{$var_name->USER_ID_KAKAO} = $USER_ID_KAKAO;
+			$result->{$var_name->USER}->{$var_name->USER_ID_KAKAO} = $USER_ID_KAKAO;
+			
+			$USER_INFO = $mysql_interface->select_user_by_id_kakao($REQ_PARAM);
 		}
-		// 2-3.
-		if(!empty($KAKAO_USER_ID)) {
-			$result->{$var_name->KAKAO_USER_ID} = $KAKAO_USER_ID;	
+		// 3-3.
+		if(!empty($USER_ID_KAKAO)) {
+			$result->{$var_name->USER}->{$var_name->USER_ID_KAKAO} = $USER_ID_KAKAO;	
 		}
 
 		if(!is_null($USER_INFO)) {
-			$result->{$var_name->USER_INFO} = $USER_INFO;	
+			$result->{$var_name->USER}->{$var_name->USER_INFO} = $USER_INFO;	
 		}
 
 		// Not the facebook user nor google user. Back to the log in page.
@@ -394,41 +455,7 @@ class TitanPreprocessor{
 		} else if(Checker::is_same_str($USER_PERMISSION, $const->USER_PERMISSION[1][$var_name->CODE])) {
 			$NAV_FILE_PATH = "$file_root_path/template/nav.user.template";
 		}
-		if(!empty($NAV_FILE_PATH)) {
-			$result->{$var_name->NAV_FILE_PATH} = $NAV_FILE_PATH;
-		}
-
-		// TIME & DATE
-		$START_DATE = $param->get_param_string($var_name->START_DATE, TimeManager::get_days_ago(5));
-		if(!empty($START_DATE)) {
-			$result->{$var_name->START_DATE} = $START_DATE;
-		}		
-		$END_DATE = $param->get_param_string($var_name->END_DATE, TimeManager::get_now_YYYYMMDD());
-		if(!empty($END_DATE)) {
-			$result->{$var_name->END_DATE} = $END_DATE;
-		}
-		$END_DATE_DAY_AFTER = TimeManager::get_days_after(1, $END_DATE); // $END_DATE_DAY_AFTER
-		if(!empty($END_DATE_DAY_AFTER)) {
-			$result->{$var_name->END_DATE_DAY_AFTER} = $END_DATE_DAY_AFTER;
-		}
-
-		// PAGINATION
-		$PAGE_NUM = $param->get_param_number($var_name->PAGE_NUM, $const->PAGE_NUM_DEFAULT);
-		if(Checker::is_natural_number($PAGE_NUM)) {
-			$result->{$var_name->PAGE_NUM} = $PAGE_NUM;
-		}
-		$ROW_CNT = $param->get_param_number($var_name->ROW_CNT, $const->ROW_CNT_DEFAULT);
-		if(Checker::is_natural_number($ROW_CNT)) {
-			$result->{$var_name->ROW_CNT} = $ROW_CNT;
-		}		
-		$PAGE_RANGE = $param->get_param_number($var_name->PAGE_RANGE, $const->PAGE_RANGE_DEFAULT);
-		if(Checker::is_natural_number($PAGE_RANGE)) {
-			$result->{$var_name->PAGE_RANGE} = $PAGE_RANGE;
-		}
-		$IS_DESC = $param->get_param_boolean($var_name->IS_DESC, $const->IS_DESC_DEFAULT);
-		if(is_bool($IS_DESC)) {
-			$result->{$var_name->IS_DESC} = $IS_DESC;
-		}
+		$result->{$var_name->SERVICE_PATH}->{$var_name->NAV_FILE_PATH} = $NAV_FILE_PATH;
 
 		// USER
 		$TARGET_USER_ID = $param->get_param_number($var_name->TARGET_USER_ID, -1);

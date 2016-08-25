@@ -126,10 +126,10 @@ var on_log_in_facebook = function() {
 				// delegate_func
 				function(data){
 
-					var FACEBOOK_USER_ID = data.FACEBOOK_USER_ID;
+					var USER_ID_FACEBOOK = data.USER_ID_FACEBOOK;
 					if(data.user_info.__status === PROPS.PARAM_SET.USER_STATUS_NOT_IN_ACTION) {
 						
-						alert("FACEBOOK_USER_ID : " + FACEBOOK_USER_ID + "(은)는 유효한 사용자가 아닙니다.\n\n관리자에게 문의해주세요.");
+						alert("USER_ID_FACEBOOK : " + USER_ID_FACEBOOK + "(은)는 유효한 사용자가 아닙니다.\n\n관리자에게 문의해주세요.");
 
 					} else if(data.user_info.__status === PROPS.PARAM_SET.USER_STATUS_AVAILABLE) {
 
@@ -138,7 +138,7 @@ var on_log_in_facebook = function() {
 						_param
 						.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_LOG_IN)
 						.get(PROPS.PARAM_SET.USER_STATUS, data.user_info.__status)
-						.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, FACEBOOK_USER_ID)
+						.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, USER_ID_FACEBOOK)
 						.get(PROPS.PARAM_SET.FACEBOOK_USER_PROFILE_PICTURE, user_info.FACEBOOK_USER_PROFILE_PICTURE)
 						.get(PROPS.PARAM_SET.FACEBOOK_USER_GENDER, user_info.FACEBOOK_USER_GENDER)
 						.get(PROPS.PARAM_SET.FACEBOOK_USER_AGE_RANGE, user_info.FACEBOOK_USER_AGE_RANGE)
@@ -163,7 +163,7 @@ var on_log_in_facebook = function() {
 										// cookie name
 										PROPS.PARAM_SET.COOKIELOGIN
 										// cookie value
-										, FACEBOOK_USER_ID
+										, USER_ID_FACEBOOK
 										// expire hours
 										, _server.a_week_in_hours
 									);
@@ -174,7 +174,7 @@ var on_log_in_facebook = function() {
 										PROPS.PARAM_SET.COOKIELOGIN
 									);
 
-									if(cookie_return == null || FACEBOOK_USER_ID != cookie_return) {
+									if(cookie_return == null || USER_ID_FACEBOOK != cookie_return) {
 										console.log("!Error! / cookie_return is not valid!");
 										return;
 									}
@@ -182,14 +182,14 @@ var on_log_in_facebook = function() {
 										// cookie name
 										PROPS.PARAM_SET.COOKIE_LOGIN_FACEBOOK
 										// cookie value
-										, FACEBOOK_USER_ID
+										, USER_ID_FACEBOOK
 										// expire hours
 										, _server.a_week_in_hours
 									);
 
 									if(confirm("logged in success!\nMove to quiz home?")) {
 
-										var param_obj = _param.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, FACEBOOK_USER_ID);
+										var param_obj = _param.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, USER_ID_FACEBOOK);
 										_link.go_there(
 											_link.ADMIN_QUIZ_HOME
 											, param_obj
@@ -252,8 +252,8 @@ var on_log_in_google = function(googleUser) {
 
 				} else if(data.user_info.__status === PROPS.PARAM_SET.USER_STATUS_NOT_IN_ACTION) {
 					
-					var GOOGLE_USER_ID = data.GOOGLE_USER_ID;
-					alert("GOOGLE_USER_ID : " + GOOGLE_USER_ID + "(은)는 유효한 사용자가 아닙니다.\n\n관리자에게 문의해주세요.");
+					var USER_ID_GOOGLE = data.USER_ID_GOOGLE;
+					alert("USER_ID_GOOGLE : " + USER_ID_GOOGLE + "(은)는 유효한 사용자가 아닙니다.\n\n관리자에게 문의해주세요.");
 
 				} else if(data.user_info.__status === PROPS.PARAM_SET.USER_STATUS_AVAILABLE) {
 
@@ -269,7 +269,7 @@ var on_log_in_google = function(googleUser) {
 
 					if(confirm("logged in success!\nMove to quiz home?")) {
 
-						var param_obj = _param.get(PROPS.PARAM_SET.GOOGLE_USER_ID, data.GOOGLE_USER_HASH_KEY);
+						var param_obj = _param.get(PROPS.PARAM_SET.USER_ID_GOOGLE, data.GOOGLE_USER_HASH_KEY);
 						_link.go_there(
 							_link.ADMIN_QUIZ_HOME
 							, param_obj

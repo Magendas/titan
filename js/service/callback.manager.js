@@ -57,8 +57,8 @@ var callback_manager = {
 		var request_param_obj = 
 		_param
 		.get(PROPS.PARAM_SET.EVENT_TYPE, event_type)
-		.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, PROPS.FACEBOOK_USER_ID)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_ID, PROPS.GOOGLE_USER_ID)
+		.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, PROPS.USER_ID_FACEBOOK)
+		.get(PROPS.PARAM_SET.USER_ID_GOOGLE, PROPS.USER_ID_GOOGLE)
 		.get(PROPS.PARAM_SET.QUIZ_REGION, PROPS.QUIZ_REGION)
 		.get(PROPS.PARAM_SET.QUIZ_LANGUAGE, PROPS.QUIZ_LANGUAGE)
 		.get(PROPS.PARAM_SET.QUIZ_CATEGORY, quiz_category)
@@ -154,8 +154,8 @@ var callback_manager = {
 		var request_param_obj = 
 		_param
 		.get(PROPS.PARAM_SET.EVENT_TYPE, event_type)
-		.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, PROPS.FACEBOOK_USER_ID)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_ID, PROPS.GOOGLE_USER_ID)
+		.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, PROPS.USER_ID_FACEBOOK)
+		.get(PROPS.PARAM_SET.USER_ID_GOOGLE, PROPS.USER_ID_GOOGLE)
 		.get(PROPS.PARAM_SET.QUIZ_REGION, PROPS.QUIZ_REGION)
 		.get(PROPS.PARAM_SET.QUIZ_LANGUAGE, PROPS.QUIZ_LANGUAGE)
 		.get(PROPS.PARAM_SET.QUIZ_CATEGORY, quiz_category)
@@ -185,12 +185,12 @@ var callback_manager = {
 					}
 
 					// IMAGE INPUT VIEW 업데이트.
-					if(data.QUERY_PARAM.EVENT_TYPE === PROPS.PARAM_SET.EVENT_TYPE_DOWNLOAD_QUIZ_IMG_TO_SERVER) {
+					if(data.REQ_PARAM.EVENT_TYPE === PROPS.PARAM_SET.EVENT_TYPE_DOWNLOAD_QUIZ_IMG_TO_SERVER) {
 
 						var __loadable_img_link = data.QUIZ_OBJ_UPDATE.__loadable_img_link;
 						controller.set_prev_img_url(__loadable_img_link);
 
-					} else if(data.QUERY_PARAM.EVENT_TYPE === PROPS.PARAM_SET.EVENT_TYPE_DOWNLOAD_QUIZ_IMG_EXTRA_TO_SERVER) {
+					} else if(data.REQ_PARAM.EVENT_TYPE === PROPS.PARAM_SET.EVENT_TYPE_DOWNLOAD_QUIZ_IMG_EXTRA_TO_SERVER) {
 
 						var __loadable_img_link_extra = data.QUIZ_OBJ_UPDATE.__loadable_img_link_extra;
 						controller.set_prev_img_url(__loadable_img_link_extra);

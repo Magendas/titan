@@ -1479,7 +1479,7 @@ var facebookSDK = {
 
 		var response_parsed = 
 		_param
-		.get(PROPS.PARAM_SET.FACEBOOK_USER_ID,facebook_user_id)
+		.get(PROPS.PARAM_SET.USER_ID_FACEBOOK,facebook_user_id)
 		.get(PROPS.PARAM_SET.FACEBOOK_USER_EMAIL,facebook_user_email)
 		.get(PROPS.PARAM_SET.FACEBOOK_USER_FIRST_NAME,facebook_user_first_name)
 		.get(PROPS.PARAM_SET.FACEBOOK_USER_LAST_NAME,facebook_user_last_name)

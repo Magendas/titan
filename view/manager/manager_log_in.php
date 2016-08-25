@@ -194,7 +194,7 @@ var on_log_in_facebook = function() {
 
 					} else if(data.USER_INFO.__status === PROPS.PARAM_SET.USER_STATUS_NOT_IN_ACTION) {
 						
-						console.log("FACEBOOK_USER_ID : " + data.QUERY_PARAM.FACEBOOK_USER_ID + " is not valid user.\n\nPlease report the manager.");
+						console.log("USER_ID_FACEBOOK : " + data.REQ_PARAM.USER_ID_FACEBOOK + " is not valid user.\n\nPlease report the manager.");
 
 					} else if(data.USER_INFO.__status === PROPS.PARAM_SET.USER_STATUS_AVAILABLE) {
 
@@ -203,7 +203,7 @@ var on_log_in_facebook = function() {
 						_param
 						.get(PROPS.PARAM_SET.EVENT_TYPE, PROPS.PARAM_SET.EVENT_TYPE_USER_LOG_IN)
 						.get(PROPS.PARAM_SET.USER_STATUS, PROPS.PARAM_SET.USER_STATUS_AVAILABLE)
-						.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, data.QUERY_PARAM.FACEBOOK_USER_ID)
+						.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, data.REQ_PARAM.USER_ID_FACEBOOK)
 						.get(PROPS.PARAM_SET.FACEBOOK_USER_PROFILE_PICTURE, user_info.FACEBOOK_USER_PROFILE_PICTURE)
 						.get(PROPS.PARAM_SET.FACEBOOK_USER_GENDER, user_info.FACEBOOK_USER_GENDER)
 						.get(PROPS.PARAM_SET.FACEBOOK_USER_AGE_RANGE, user_info.FACEBOOK_USER_AGE_RANGE)
@@ -240,14 +240,14 @@ var on_log_in_facebook = function() {
 										// cookie name
 										PROPS.PARAM_SET.COOKIE_LOGIN_FACEBOOK
 										// cookie value
-										, data.QUERY_PARAM.FACEBOOK_USER_ID
+										, data.REQ_PARAM.USER_ID_FACEBOOK
 										// expire hours
 										, _server.a_week_in_hours
 									);
 
 									var param_obj = 
 									_param
-									.get(PROPS.PARAM_SET.FACEBOOK_USER_ID, data.QUERY_PARAM.FACEBOOK_USER_ID)
+									.get(PROPS.PARAM_SET.USER_ID_FACEBOOK, data.REQ_PARAM.USER_ID_FACEBOOK)
 									;
 
 									_link.go_there_post(
@@ -313,7 +313,7 @@ var on_log_in_google = function(googleUser) {
 
 				} else if(data.USER_INFO.__status === PROPS.PARAM_SET.USER_STATUS_AVAILABLE) {
 
-					if(_v.is_not_valid_str(data.USER_INFO.__google_id)) {
+					if(_v.is_not_valid_str(data.USER_INFO.__id_google)) {
 						console.log("User(Google Account) is not valid user.\n\nPlease report the manager.");
 						return;
 					}
@@ -322,12 +322,12 @@ var on_log_in_google = function(googleUser) {
 						// cookie name
 						PROPS.PARAM_SET.COOKIE_LOGIN_GOOGLE
 						// cookie value
-						, data.USER_INFO.__google_id
+						, data.USER_INFO.__id_google
 						// expire hours
 						, _server.a_week_in_hours
 					);
 
-					var param_obj = _param.get(PROPS.PARAM_SET.GOOGLE_USER_ID, data.USER_INFO.__google_id);
+					var param_obj = _param.get(PROPS.PARAM_SET.USER_ID_GOOGLE, data.USER_INFO.__id_google);
 
 					_link.go_there_post(
 						_link.ADMIN_QUIZ_HOME
