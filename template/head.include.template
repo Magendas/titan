@@ -14,12 +14,7 @@
 <script src="[__ROOT_PATH__]/css/bootstrap/js/bootstrap.min.js"></script>
 <script src="[__ROOT_PATH__]/js/moment/moment.min.js"></script>
 
-<!-- log in only -->
-<script src="[__ROOT_PATH__]/js/facebook/facebook.sdk.js"></script>
-<script src="[__ROOT_PATH__]/js/google/google.sdk.js"></script>
-
-
-
+<!-- airborne component -->
 <script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.js"></script>
 <script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.ajax.js"></script>
 <script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.validator.js"></script>
@@ -48,19 +43,15 @@
 <!-- csv parser -->
 <script src="[__ROOT_PATH__]/js/papa/papaparse.js"></script>
 
-<!-- xogames -->
-<script src="[__ROOT_PATH__]/js/xogames/quiz.simulator.manager.js"></script>
-<script src="[__ROOT_PATH__]/js/xogames/quiz.factory.manager.js"></script>
-<script src="[__ROOT_PATH__]/js/xogames/callback.manager.js"></script>
-<script src="[__ROOT_PATH__]/js/xogames/param.manager.js"></script>
-<script src="[__ROOT_PATH__]/js/xogames/link.manager.js"></script>
-<script src="[__ROOT_PATH__]/js/xogames/lumino.manager.js"></script>
-<script src="[__ROOT_PATH__]/js/xogames/log.manager.js"></script>
-<script src="[__ROOT_PATH__]/js/xogames/post.processor.js"></script>
+<!-- service -->
+<script src="[__ROOT_PATH__]/js/service/callback.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/service/link.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/service/log.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/service/lumino.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/service/post.processor.js"></script>
 
-
-<!-- xogames css -->
-<link href="[__ROOT_PATH__]/css/xogames/quiz_simulator.css" rel="stylesheet">
+<!-- service css -->
+<link href="[__ROOT_PATH__]/css/service/service.css" rel="stylesheet">
 
 
 
@@ -99,11 +90,6 @@
 <!-- bootstrap toggle -->
 <script src="[__ROOT_PATH__]/plugin/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
 <link href="[__ROOT_PATH__]/plugin/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
-
-<!--
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
--->
 
 <link href="[__ROOT_PATH__]/css/bootstrap/datepicker/datepicker.css" rel="stylesheet">
 <!-- http://www.eyecon.ro/bootstrap-datepicker/ -->
@@ -145,8 +131,7 @@
   var _action_table = airborne.bootstrap.view.obj.__action_table;
   var _action_modal = airborne.bootstrap.view.obj.__action_modal;
 
-  // xogames
-  var _param = param_manager;
+  // titan service link
   var _link = link_manager.init("[__ROOT_PATH__]", _server, _param);
 </script>
 

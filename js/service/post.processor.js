@@ -14,14 +14,17 @@ $(document).ready(function(){
 		}
 	});
 
-	// lumino activate
-	var lumino_top_nav_bar_jq = $("nav.navbar");
-	var sidebar_collapse_jq = $("div#sidebar-collapse");
-	var lumino_param_obj = {
-		nav_container_jq:lumino_top_nav_bar_jq
-		,sidebar_jq:sidebar_collapse_jq
+	// http://stackoverflow.com/questions/858181/how-to-check-a-not-defined-variable-in-javascript
+	if(undefined != lumino_manager) {
+		// lumino activate
+		var lumino_top_nav_bar_jq = $("nav.navbar");
+		var sidebar_collapse_jq = $("div#sidebar-collapse");
+		var lumino_param_obj = {
+			nav_container_jq:lumino_top_nav_bar_jq
+			,sidebar_jq:sidebar_collapse_jq
+		}
+		lumino_manager.init(lumino_param_obj);
 	}
-	lumino_manager.init(lumino_param_obj);
 
 	// facebook log in
 	facebookSDK.init();	

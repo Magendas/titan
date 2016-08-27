@@ -4,7 +4,7 @@ class TitanPreprocessor{
 
 	private $version="v0.520160823";
 	private $param;
-	public function TitanPreprocessor($mysql_interface=null, $permission_arr=null) {
+	public function TitanPreprocessor($mysql_interface=null, $permission_arr=null, $view_file_name="") {
 
 		$this->param = $mysql_interface->get_param_manager();
 
@@ -21,6 +21,8 @@ class TitanPreprocessor{
 			, $file_root_path
 			// $permission_arr=null
 			, $permission_arr
+			// $view_file_name
+			, $view_file_name
 		);
 
 	}
@@ -111,7 +113,7 @@ class TitanPreprocessor{
 
 	}
 
-	private function set_props($mysql_interface=null, $service_root_path=null, $file_root_path=null, $permission_arr=null){
+	private function set_props($mysql_interface=null, $service_root_path=null, $file_root_path=null, $permission_arr=null, $view_file_name=""){
 
 		// 1. 건네받은 파라미터가 유효한 경우에만 프로퍼티로 등록합니다.
 		$result = new stdClass();
@@ -224,7 +226,14 @@ class TitanPreprocessor{
 			$permission_arr = array();
 		}
 
-		$HEAD_FILE_PATH = "$file_root_path/template/head.include.template";
+		// $view_file_name;
+		$view_file_path = TitanLinkManager::get_view_path($view_file_name);
+		$view_path_login = TitanLinkManager::get(TitanLinkManager::$LOG_IN);
+		if(Checker::is_same_str($view_file_path, $view_path_login)) {
+			$HEAD_FILE_PATH = "$file_root_path/template/head.login.include.template";
+		} else {
+			$HEAD_FILE_PATH = "$file_root_path/template/head.include.template";
+		}
 		$result->{$var_name->SERVICE_PATH}->{$var_name->HEAD_FILE_PATH} = $HEAD_FILE_PATH;
 
 		$NAV_FILE_PATH = "$file_root_path/template/nav.user.template";
@@ -262,6 +271,10 @@ class TitanPreprocessor{
 
 		// 아래와 같은 사전 작업을 진행합니다. 
 		$result->{$var_name->USER} = new stdClass();
+
+		// 외부 플랫폼 로그인에 필요한 데이터들을 확인합니다.
+		// 플랫폼 데이터가 유효하다면 전달받은 데이터로 로그인을 진행합니다.
+		
 
 		// 1. Log in check with cookie
 		// FACEBOOK ID? or GOOGLE ID? or KAKAO ID?
@@ -326,7 +339,7 @@ class TitanPreprocessor{
 
 			$USER_INFO = $mysql_interface->select_user_by_id_google($REQ_PARAM);
 		}
-		// 2-3.
+		// 2-3. 확인된 USER_ID_GOOGLE
 		if(!empty($USER_ID_GOOGLE)) {
 			$result->{$var_name->USER}->{$var_name->USER_ID_GOOGLE} = $USER_ID_GOOGLE;	
 		}

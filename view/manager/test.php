@@ -11,8 +11,11 @@ new TitanPreprocessor(
 	, array(
 		$const->USER_PERMISSION_CODE_MANAGER			// Admin(모든거, Quota 설정)
 	)
+	, __FILE__
 );
 $PROPS = $preprocessor->get_props();
+
+
 
 ?>
 <html>

@@ -1,0 +1,65 @@
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="viewport" content="[__VIEW_PORT__]">
+
+<title>Titan</title>
+
+<link href="[__ROOT_PATH__]/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="shortcut icon" href="[__ROOT_PATH__]/images/logo/favicon.ico" />
+
+<script src="[__ROOT_PATH__]/js/jquery/jquery-1.11.0.min.js"></script>
+<script src="[__ROOT_PATH__]/js/jquery/jquery.form.js"></script>
+<script src="[__ROOT_PATH__]/css/bootstrap/js/bootstrap.min.js"></script>
+<script src="[__ROOT_PATH__]/js/moment/moment.min.js"></script>
+
+<!-- log in only -->
+<script src="[__ROOT_PATH__]/js/facebook/titan.facebook.sdk.js"></script>
+<script src="[__ROOT_PATH__]/js/google/titan.google.sdk.js"></script>
+<script src="[__ROOT_PATH__]/js/kakao/titan.kakao.sdk.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<!-- airborne -->
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.ajax.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.validator.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.date.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.base.color.js"></script>
+
+<!-- view component -->
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.js"></script>
+
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.button.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.checkbox.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.input.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.headsup.js"></script>
+<script src="[__ROOT_PATH__]/js/airborne/bootstrap.airborne.view.obj.cropeller.js"></script>
+
+<!-- service -->
+<script src="[__ROOT_PATH__]/js/service/callback.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/service/link.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/service/log.manager.js"></script>
+<script src="[__ROOT_PATH__]/js/service/post.processor.js"></script>
+
+<!-- service css -->
+<link href="[__ROOT_PATH__]/css/service/service.css" rel="stylesheet">
+
+<!-- bootstrap loader -->
+<link href="[__ROOT_PATH__]/css/bootstrap/loader/animation.css" rel="stylesheet">
+
+<!-- PC Javascript Library -->
+<script>
+  var _v = airborne.validator;
+  var _v_factory = airborne.validator.factory;
+  var _array = airborne.array;
+  var _regex = airborne.regex;
+  var _dates = airborne.dates;
+  var _html = airborne.html;
+  var _obj = airborne.bootstrap.obj;
+  var _server = airborne.server;
+  var _column = airborne.bootstrap.column;
+  var _ajax = airborne.ajax;
+  var _color = airborne.color;
+</script>
+

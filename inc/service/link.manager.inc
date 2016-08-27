@@ -3,21 +3,41 @@
 class TitanLinkManager{
 
 	private static $SERVICE_ROOT_PATH="";
+	// @ usage : TitanLinkManager::set_service_root_path($service_root_path="");
 	public static function set_service_root_path($service_root_path=""){
 		self::$SERVICE_ROOT_PATH = $service_root_path;
-	}	
+	}
+	// @ usage : TitanLinkManager::get_service_root_path();
 	public static function get_service_root_path(){
 		return self::$SERVICE_ROOT_PATH;
 	}
 
 	private static $FILE_ROOT_PATH="";
+	// @ usage : TitanLinkManager::set_file_root_path($file_root_path="");
 	public static function set_file_root_path($file_root_path=""){
 		self::$FILE_ROOT_PATH = $file_root_path;
 	}	
+	// @ usage : TitanLinkManager::get_file_root_path();
 	public static function get_file_root_path(){
 		return self::$FILE_ROOT_PATH;
 	}
+	// @ desc : 파일 절대 경로를 넣으면, 웹 서버 페이지 주소를 돌려준다.
+	// @ usage : TitanLinkManager::get_view_path($view_file_path="");
+	public static function get_view_path($view_file_path=""){
 
+		if(empty($view_file_path)) {
+			return "";
+		}
+
+		$service_root_path = Self::get_service_root_path();
+		$service_root_path_strpos = strpos($view_file_path,$service_root_path);
+		$view_path = substr($view_file_path, $service_root_path_strpos, strlen($view_file_path));
+
+		return $view_path;
+
+	}
+
+	// @ usage : TitanLinkManager::$LOG_IN
 	public static $LOG_IN="/view/log_in.php";
 	public static $LOG_OUT="/view/log_out.php";
 
@@ -36,6 +56,7 @@ class TitanLinkManager{
 		$link = self::get($type, $param_arr);
 		header("Location:$link");
 	}
+	// @ usage : TitanLinkManager::get($type="", $param_arr=null);
 	public static function get($type="", $param_arr=null) {
 		$link = self::get_service_root_path() . $type;
 		if(is_null($param_arr)){

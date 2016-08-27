@@ -27,33 +27,21 @@
 	, "USER_PERMISSION_CODE":["M","U"]
 	, "USER_PERMISSION_NAME":["MANAGER","USER"]
 
-	, "FACEBOOK_APP_NAME":["LOCAL","DEV","STAGE","PRODUCTION"]
-	, "FACEBOOK_APP":[
-		{
-			"DOMAIN":"localhost"
-			, "ID":"619046961592129"
-			, "VERSION":"v2.6"
-		}
-		,{
-			"DOMAIN":"localhost"
-			, "ID":"619046961592129"
-			, "VERSION":"v2.6"
-		}
-		,{
-			"DOMAIN":"localhost"
-			, "ID":"619046961592129"
-			, "VERSION":"v2.6"
-		}
-		,{
-			"DOMAIN":"localhost"
-			, "ID":"619046961592129"
-			, "VERSION":"v2.6"
-		}
-	]
-	, "FACEBOOK_APP_ID":""
-	, "GOOGLE_APP_ID":""
-	, "KAKAO_APP_ID":""
-	, "EMAIL_WEB_MASTER":""
+	, "APP_FACEBOOK":{
+		"DOMAIN":"magendas.com"
+		, "SITE_URL":"http://magendas.com/"
+		, "ID":"236514070071909"
+		, "VERSION":"v2.6"
+	}
+	, "APP_GOOGLE":{
+		"CLIENT_ID":"254504306609-fhbcogr25167s2vicab51b1veo1so17n.apps.googleusercontent.com"
+		, "CLIENT_SECRET_KEY":"Pu0iCvSYMbHGvwastW6jQNHj"
+	}
+	, "APP_KAKAO":{
+		"KEY_REST_API":"2a5d2a53f80f2d87d8e9dba10ff726bc"
+		, "KEY_JAVASCRIPT":"f79f9e707a406ca442077516db048a1b"
+	}
+	, "EMAIL_WEB_MASTER":"wonder@cafeclass.kr"
 	, "EVENT_TYPE":[
 		"USER_INFO_UPDATE"
 		,"USER_LOG_IN"
