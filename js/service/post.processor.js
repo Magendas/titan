@@ -1,21 +1,49 @@
 function on_load_gapi() {
 	googleSDK.on_load_gapi();
 }
+function login_with_kakao() {
+
+	// kakao log in
+	var kakao_app_key = PROPS.DEV_PROPS.SERVICE_CONST.APP_KAKAO.KEY_JAVASCRIPT;
+	kakao_sdk.init(kakao_app_key);
+
+	kakao_sdk.sign_in(
+		// scope
+		this
+		// callback_on_receive_user_info
+		, function(result) {
+
+			console.log("callback_on_receive_user_info  / result ::: ",result);
+
+			// 카카오톡 로그인 시에 유저 정보는 닉네임과 프로필 이미지 주소만 얻을수 있습니다.
+			// 이메일, 연락처 정보는 가입 유저 추가 정보로 입력해야 합니다.
+
+			// TODO sign up manager를 만들어야 할듯. 
+			// 1. 신규 가입
+			// 2. 기존 회원 로그인
+			// 3. 탈퇴 
+
+			// 위 기능들을 관리하는 javascript 모듈.
+
+		}
+	);
+}
+function login_with_facebook() {
+
+	console.log("login_with_facebook");
+	facebook_sdk.log_in(this, function(response){
+		console.log("login_with_facebook / response ::: ",response);
+	});
+
+}
 $(document).ready(function(){
 
 	// DEBUG
-	$("a.navbar-brand").click(function() {
-		// DEBUG MODE TOGGLE
-		if(PROPS.IS_DEBUG_MODE == PROPS.PARAM_SET.YES) {
-			PROPS.IS_DEBUG_MODE = PROPS.PARAM_SET.NO;
-		} else if(PROPS.IS_DEBUG_MODE == PROPS.PARAM_SET.NO) {
-			PROPS.IS_DEBUG_MODE = PROPS.PARAM_SET.YES;
-			console.log("PROPS.IS_DEBUG_MODE ::: ",PROPS.IS_DEBUG_MODE);
-		}
-	});
+	console.log("PROPS.IS_DEBUG_MODE ::: ",PROPS.IS_DEBUG_MODE);
 
+	// 운영툴일 경우만 lumino가 동작함.
 	// http://stackoverflow.com/questions/858181/how-to-check-a-not-defined-variable-in-javascript
-	if(undefined != lumino_manager) {
+	if (typeof lumino_manager != 'undefined') {
 		// lumino activate
 		var lumino_top_nav_bar_jq = $("nav.navbar");
 		var sidebar_collapse_jq = $("div#sidebar-collapse");
@@ -26,38 +54,26 @@ $(document).ready(function(){
 		lumino_manager.init(lumino_param_obj);
 	}
 
-	// facebook log in
-	facebookSDK.init();	
+	// kakao log in
+	// var kakao_app_key = PROPS.DEV_PROPS.SERVICE_CONST.APP_KAKAO.KEY_JAVASCRIPT;
+	// kakao_sdk.init(kakao_app_key);
 
-	// SET COOKIE - REFACTOR ME
-	if(_v.is_valid_str(PROPS.QUIZ_REGION)) {
-		_server.setCookie(
-			// cookie name
-			PROPS.PARAM_SET.QUIZ_REGION
-			// cookie value
-			, PROPS.QUIZ_REGION
-			// expire hours
-			, _server.a_week_in_hours
-		);
-	}
-	if(_v.is_valid_str(PROPS.QUIZ_LANGUAGE)) {
-		_server.setCookie(
-			// cookie name
-			PROPS.PARAM_SET.QUIZ_LANGUAGE
-			// cookie value
-			, PROPS.QUIZ_LANGUAGE
-			// expire hours
-			, _server.a_week_in_hours
-		);
-	}
-	if(_v.is_valid_str(PROPS.QUIZ_CATEGORY)) {
-		_server.setCookie(
-			// cookie name
-			PROPS.PARAM_SET.QUIZ_CATEGORY
-			// cookie value
-			, PROPS.QUIZ_CATEGORY
-			// expire hours
-			, _server.a_week_in_hours
-		);
-	}
+	// facebook log in
+	var fb_app_id = PROPS.DEV_PROPS.SERVICE_CONST.APP_FACEBOOK.ID;
+	var fb_app_ver = PROPS.DEV_PROPS.SERVICE_CONST.APP_FACEBOOK.VERSION;
+
+	facebook_sdk.init(
+		// fb_app_id
+		fb_app_id
+		// fb_app_ver
+		, fb_app_ver
+		// scope
+		, this
+		// callback
+		, function() {
+			// Do something...
+		}
+	);	// end init
+
+
 })

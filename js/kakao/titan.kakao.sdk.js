@@ -1,74 +1,101 @@
-var googleSDK = {
-	parse_login_response:function(google_user) {
+var kakao_sdk = {
+	// @ reference : https://developers.kakao.com/docs/js-reference
+	init:function(kakao_app_key) {
 
-		if(google_user == null) {
-			console.log("!Error! / parse_login_response / google_user == null");
+		if (typeof Kakao == 'undefined') {
+			console.log("!Error! / undefined != Kakao");
 			return;
 		}
 
-		// Samples
-
-		// ID: 109868663206702543271
-		// log_in.php:180 Name: 정원덕
-		// log_in.php:181 Image URL: https://lh5.googleusercontent.com/-lJ1FxHp66ZM/AAAAAAAAAAI/AAAAAAAAAQw/TNi2Tn0jTB4/s96-c/photo.jpg
-		// log_in.php:182 Email: wonder13662@gmail.com
-
-		var profile = google_user.getBasicProfile();
-
-		// 1. google_user_id
-		// var id_token = google_user.getAuthResponse().id_token;
-		// var google_user_id = id_token;
-
-		// 보안 이슈로 plain user id는 사용을 권장하지 않습니다만, token은 값이 지속적으로 변경되므로 id를 MD5로 해시키를 만들어 사용합니다.
-		// https://developers.google.com/identity/sign-in/web/backend-auth
-
-		// Google Developers Console
-		// https://console.developers.google.com/projectselector/apis/library
-
-		// 조건 1 : 숫자로 구성된 ip는 허용하지 않습니다.
-		// http://stackoverflow.com/questions/36020374/google-permission-denied-to-generate-login-hint-for-target-domain-not-on-localh
-		var google_user_id = profile.getId();
-
-		// 2. email
-		var google_user_email = profile.getEmail();
-		
-		// 3. first name & last name
-		// 공백 포함된 이름의 처리.
-		var google_user_first_name = profile.getGivenName();
-		var google_user_last_name = profile.getFamilyName();
-
-		// 4. Picture - url / Magendas로 업로드 필요.
-		var google_profile_image = profile.getImageUrl();	
-		var response_parsed = 
-		_param
-		.get(PROPS.PARAM_SET.USER_ID_GOOGLE_TO_ENCODE_MD5,google_user_id)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_EMAIL,google_user_email)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_FIRST_NAME,google_user_first_name)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_LAST_NAME,google_user_last_name)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_PROFILE_PICTURE,google_profile_image)
-		;
-
-		return response_parsed;
-	}
-	, on_load_gapi:function() {
-
-		if(gapi.auth2 != null) {
+		if(_v.is_not_valid_str(kakao_app_key)) {
+			console.log("!Error! / _v.is_not_valid_str(kakao_app_key)");
 			return;
 		}
 
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
+		Kakao.init(kakao_app_key);
+
+	} // end init
+	, sign_in:function(scope, callback_on_receive_user_info) {
+
+		// 직접 제작한 로그인/로그아웃 버튼을 사용하기 위해, sign_in/sign_out을 메서드로 제어해야 합니다.
+		// 로그인 창을 띄웁니다.
+		Kakao.Auth.login({
+			success: function(authObj) {
+
+				console.log("authObj :: ",authObj);
+
+				// 아래 3가지 정보는 반드시 있어야 합니다.
+				var access_token = authObj.access_token;
+				var refresh_token = authObj.refresh_token;
+				var scope = authObj.scope;
+
+				// Access Token을 Javascript SDK에 설정합니다.
+				Kakao.Auth.setAccessToken(access_token);
+
+				// 유저의 프로파일 정보를 가져옵니다.
+		        Kakao.API.request({
+					url: '/v1/user/me',
+					success: function(res) {
+
+						console.log("Kakao.API.request / res ::: ",res);
+
+						var user_id_kakao = res.id;
+						var user_nickname_kakao = res.properties.nickname;
+						// 가져온 이미지 주소를 서비스 내부적으로 사용합니다.
+						var user_profile_image_kakao = res.properties.profile_image;
+
+						var callback_param = {
+							success:true
+							, from:"Kakao.API.request"
+							, user_id_kakao:user_id_kakao
+							, user_email:""
+							, user_nickname_kakao:user_nickname_kakao
+							, user_profile_image_kakao:user_profile_image_kakao
+						}
+
+						if(null != callback_on_receive_user_info) {
+							callback_on_receive_user_info.apply(scope, [callback_param]);	
+						}
+
+					}, // end success
+					fail: function(error) {
+
+						var callback_param = {
+							success:false
+							, from:"Kakao.API.request"
+							, error:error
+						}
+
+						if(null != callback_on_receive_user_info) {
+							callback_on_receive_user_info.apply(scope, [callback_param]);	
+						}
+
+					} // end fail
+		        });			
+
+			},
+			fail: function(error) {
+
+	          	var callback_param = {
+	          		success:false
+	          		, from:"Kakao.Auth.login"
+	          		, error:error
+	          	}
+
+	          	if(null != callback_on_receive_user_info) {
+	          		callback_on_receive_user_info.apply(scope, [callback_param]);	
+	          	}
+
+			}
+		});		
+
+	} // end sign_in
+	, sign_out:function(scope, callback) {
+
+		Kakao.Auth.logout(function() {
+			callback.apply(scope, [])
 		});
 
-	}
-	, sign_out:function(callback, callback_scope) {
-
-	    var auth2 = gapi.auth2.getAuthInstance();
-	    auth2.signOut().then(function () {
-			callback.apply(callback_scope, []);
-	    });
-	    
-	}
-
+	} // end sign_out
 }
 

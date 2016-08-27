@@ -28,6 +28,20 @@ $PROPS = $preprocessor->get_props();
 </head>
 <body role="document">
 
+	<!-- KAKAO LOGIN BUTTON - INIT -->
+	<a id="custom-login-btn" href="javascript:login_with_kakao()">
+		<img src="/titan/images/login/log_in_button_kakao.png" width="205"/>
+	</a><br/><br/>
+	<!-- KAKAO LOGIN BUTTON - DONE -->
+
+	<!-- FACEBOOK LOGIN BUTTON - INIT -->
+	<a id="custom-login-btn" href="javascript:login_with_facebook()">
+		<img src="/titan/images/login/log_in_button_facebook.png" width="390"/>
+	</a>
+	<!-- FACEBOOK LOGIN BUTTON - DONE -->
+
+	
+
 <script>
 
 var PROPS = <?php echo json_encode($PROPS);?>;
