@@ -3,11 +3,8 @@ function on_load_gapi() {
 }
 function login_with_kakao() {
 
-	// kakao log in
-	var kakao_app_key = PROPS.DEV_PROPS.SERVICE_CONST.APP_KAKAO.KEY_JAVASCRIPT;
-	kakao_sdk.init(kakao_app_key);
 
-	kakao_sdk.sign_in(
+	kakao_sdk.log_in(
 		// scope
 		this
 		// callback_on_receive_user_info
@@ -30,11 +27,22 @@ function login_with_kakao() {
 }
 function login_with_facebook() {
 
-	console.log("login_with_facebook");
 	facebook_sdk.log_in(this, function(response){
 		console.log("login_with_facebook / response ::: ",response);
 	});
 
+}
+function login_with_google() {
+
+	google_sdk.log_in(this, function(response){
+		console.log("login_with_google / response ::: ",response);
+	});
+
+}
+function log_out() {
+	kakao_sdk.log_out();
+	facebook_sdk.log_out();
+	google_sdk.log_out();
 }
 $(document).ready(function(){
 
@@ -54,11 +62,22 @@ $(document).ready(function(){
 		lumino_manager.init(lumino_param_obj);
 	}
 
-	// kakao log in
-	// var kakao_app_key = PROPS.DEV_PROPS.SERVICE_CONST.APP_KAKAO.KEY_JAVASCRIPT;
-	// kakao_sdk.init(kakao_app_key);
+	// kakao auth init
+	var kakao_app_key = PROPS.DEV_PROPS.SERVICE_CONST.APP_KAKAO.KEY_JAVASCRIPT;
+	kakao_sdk.init(kakao_app_key);
 
-	// facebook log in
+	// google auth init
+	var google_client_id = PROPS.DEV_PROPS.SERVICE_CONST.APP_GOOGLE.CLIENT_ID;
+	var google_api_key = PROPS.DEV_PROPS.SERVICE_CONST.APP_GOOGLE.API_KEY;
+
+	google_sdk.init(
+		// client_id
+		google_client_id
+		// api_key
+		, google_api_key
+	);
+
+	// facebook auth init
 	var fb_app_id = PROPS.DEV_PROPS.SERVICE_CONST.APP_FACEBOOK.ID;
 	var fb_app_ver = PROPS.DEV_PROPS.SERVICE_CONST.APP_FACEBOOK.VERSION;
 

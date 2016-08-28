@@ -1,74 +1,108 @@
-var googleSDK = {
-	parse_login_response:function(google_user) {
+var google_sdk = {
+	callback_on_login:null
+	, callback_scope_on_login:null
+	, init:function(client_id, api_key) {
 
-		if(google_user == null) {
-			console.log("!Error! / parse_login_response / google_user == null");
+		if(_v.is_not_valid_str(client_id)) {
+			console.log("!Error! / google_sdk.init / _v.is_not_valid_str(client_id)");
 			return;
 		}
 
-		// Samples
-
-		// ID: 109868663206702543271
-		// log_in.php:180 Name: 정원덕
-		// log_in.php:181 Image URL: https://lh5.googleusercontent.com/-lJ1FxHp66ZM/AAAAAAAAAAI/AAAAAAAAAQw/TNi2Tn0jTB4/s96-c/photo.jpg
-		// log_in.php:182 Email: wonder13662@gmail.com
-
-		var profile = google_user.getBasicProfile();
-
-		// 1. google_user_id
-		// var id_token = google_user.getAuthResponse().id_token;
-		// var google_user_id = id_token;
-
-		// 보안 이슈로 plain user id는 사용을 권장하지 않습니다만, token은 값이 지속적으로 변경되므로 id를 MD5로 해시키를 만들어 사용합니다.
-		// https://developers.google.com/identity/sign-in/web/backend-auth
-
-		// Google Developers Console
-		// https://console.developers.google.com/projectselector/apis/library
-
-		// 조건 1 : 숫자로 구성된 ip는 허용하지 않습니다.
-		// http://stackoverflow.com/questions/36020374/google-permission-denied-to-generate-login-hint-for-target-domain-not-on-localh
-		var google_user_id = profile.getId();
-
-		// 2. email
-		var google_user_email = profile.getEmail();
-		
-		// 3. first name & last name
-		// 공백 포함된 이름의 처리.
-		var google_user_first_name = profile.getGivenName();
-		var google_user_last_name = profile.getFamilyName();
-
-		// 4. Picture - url / Magendas로 업로드 필요.
-		var google_profile_image = profile.getImageUrl();	
-		var response_parsed = 
-		_param
-		.get(PROPS.PARAM_SET.USER_ID_GOOGLE_TO_ENCODE_MD5,google_user_id)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_EMAIL,google_user_email)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_FIRST_NAME,google_user_first_name)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_LAST_NAME,google_user_last_name)
-		.get(PROPS.PARAM_SET.GOOGLE_USER_PROFILE_PICTURE,google_profile_image)
-		;
-
-		return response_parsed;
-	}
-	, on_load_gapi:function() {
-
-		if(gapi.auth2 != null) {
+		if(_v.is_not_valid_str(api_key)) {
+			console.log("!Error! / google_sdk.init / _v.is_not_valid_str(api_key)");
 			return;
 		}
 
-		gapi.load('auth2', function() {
-			gapi.auth2.init();
-		});
+		var _self = this;
+		var scopes = "profile email https://www.googleapis.com/auth/drive.readonly";
+
+		function init_auth() {
+			gapi.client.setApiKey(api_key);
+			gapi.auth2.init({
+				client_id: client_id
+				, scope: scopes
+			}).then(function () {
+
+				// Listen for sign-in state changes.
+				gapi.auth2.getAuthInstance().isSignedIn.listen(update_sign_in_status);
+
+				// Handle the initial sign-in state.
+				update_sign_in_status(gapi.auth2.getAuthInstance().isSignedIn.get());
+
+			});
+		}
+
+		function update_sign_in_status(is_signed_in) {
+
+			var callback_param = null;
+			if (is_signed_in) {
+
+				var google_user = gapi.auth2.getAuthInstance().currentUser.get();
+				var basic_profile = google_user.getBasicProfile();
+
+				var user_id_google = basic_profile.getId();
+				var user_nickname_google = basic_profile.getName();
+				var user_first_name_google = basic_profile.getGivenName();
+				var user_last_name_google = basic_profile.getFamilyName();
+				var user_profile_image_google = basic_profile.getImageUrl();
+				var user_email_google = basic_profile.getEmail();
+
+				// wonder.jung
+				// 로그인 되었다면 위 정보로 유저 정보를 생성, 유저를 추가해줍니다.
+
+				callback_param = {
+					success:true
+					, from:"gapi.auth2.getAuthInstance().signIn"
+					, user_id:user_id_google
+					, user_email:user_email_google
+					, user_nickname:user_nickname_google
+					, user_first_name:user_first_name_google
+					, user_last_name:user_last_name_google
+					, user_profile_image:user_profile_image_google
+				}
+			}
+
+			var callback = _self.callback_on_login;
+			var scope = _self.callback_scope_on_login;
+
+			console.log("HERE / 001 / callback ::: ",callback);
+			console.log("HERE / 001 / scope ::: ",scope);
+
+			if(callback != null && scope != null && callback_param != null) {
+
+				console.log("HERE / 002");
+
+				// Insert your code here
+				callback.apply(scope, [callback_param]);
+			}
+		}
+
+		// Load the API client and auth library
+		gapi.load('client:auth2', init_auth);
 
 	}
-	, sign_out:function(callback, callback_scope) {
+	, log_in:function(scope, callback) {
 
-	    var auth2 = gapi.auth2.getAuthInstance();
-	    auth2.signOut().then(function () {
-			callback.apply(callback_scope, []);
-	    });
-	    
+		console.log("HERE / log_in / 001");
+
+		if(null == gapi) {
+			return;
+		}
+
+		console.log("HERE / log_in / 002");
+
+		this.callback_on_login = callback;
+		this.callback_scope_on_login = scope;
+
+		var options = {'scope':'profile email'};
+		gapi.auth2.getAuthInstance().signIn(options);
+
+	}
+	, log_out:function() {
+		if(null == gapi) {
+			return;
+		}
+		gapi.auth2.getAuthInstance().signOut();
 	}
 
 }
-

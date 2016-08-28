@@ -80,6 +80,38 @@ var facebook_sdk = {
 		}, {scope: 'public_profile,email'});
 
 	}
+	, log_out:function() {
+
+		// 현재 로그인 상태인 것을 확인해서 로그인 되어 있다면, 로그아웃한다.
+		FB.getLoginStatus(function(response) {
+
+			if (response.status === 'connected') {
+
+				// the user is logged in and has authenticated your
+				// app, and response.authResponse supplies
+				// the user's ID, a valid access token, a signed
+				// request, and the time the access token 
+				// and signed request each expire
+				var uid = response.authResponse.userID;
+				var accessToken = response.authResponse.accessToken;
+
+				FB.logout(function(response){
+					// to do something.
+				});
+
+			} else if (response.status === 'not_authorized') {
+
+				// the user is logged in to Facebook, 
+				// but has not authenticated your app
+
+			} else {
+
+				// the user isn't logged in to Facebook.
+
+			}
+		});		
+
+	}
 	, get_user:function(scope, callback) {
 
 		// wonder.jung
@@ -103,6 +135,8 @@ var facebook_sdk = {
 					, user_id:user_id_facebook
 					, user_email:user_email_facebook
 					, user_nickname:user_nickname_facebook
+					, user_first_name:""
+					, user_last_name:""
 					, user_profile_image:user_profile_image_facebook
 				}
 

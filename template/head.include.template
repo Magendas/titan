@@ -73,17 +73,6 @@
 <link href="[__ROOT_PATH__]/plugin/json-viewer/jquery.json-viewer.css" rel="stylesheet">
 <script src="[__ROOT_PATH__]/plugin/json-viewer/jquery.json-viewer.js"></script>
 
-<!-- flexImages -->
-<link href="[__ROOT_PATH__]/plugin/jQuery-flexImages-master/jquery.flex-images.css" rel="stylesheet">
-<script src="[__ROOT_PATH__]/plugin/jQuery-flexImages-master/jquery.flex-images.min.js"></script>
-
-
-<!-- google login --> 
-<!--
-<script src="https://apis.google.com/js/platform.js?onload=on_load_gapi" async defer></script>
-<meta name="google-signin-client_id" content="567024000478-lnj6fh33fltgv884s78ft7rlrt528pho.apps.googleusercontent.com">
--->
-
 <!-- bootstrap loader -->
 <link href="[__ROOT_PATH__]/css/bootstrap/loader/animation.css" rel="stylesheet">
 

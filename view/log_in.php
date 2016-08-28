@@ -37,10 +37,20 @@ $PROPS = $preprocessor->get_props();
 	<!-- FACEBOOK LOGIN BUTTON - INIT -->
 	<a id="custom-login-btn" href="javascript:login_with_facebook()">
 		<img src="/titan/images/login/log_in_button_facebook.png" width="390"/>
-	</a>
+	</a><br/><br/>
 	<!-- FACEBOOK LOGIN BUTTON - DONE -->
 
+	<!-- GOOGLE LOGIN BUTTON - INIT -->
+	<a id="custom-login-btn" href="javascript:login_with_google()">
+		<img src="/titan/images/login/log_in_button_google.png" width="191"/>
+	</a><br/><br/>
+	<!-- GOOGLE LOGIN BUTTON - DONE -->
 	
+	<!-- LOG OUT BUTTON - INIT -->
+	<a id="custom-login-btn" href="javascript:log_out()">
+		<img src="/titan/images/login/log_out_button.png" width="191"/>
+	</a>
+	<!-- LOG OUT BUTTON - DONE -->
 
 <script>
 

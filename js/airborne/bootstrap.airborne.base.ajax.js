@@ -58,7 +58,7 @@ airborne.ajax = {
 	/*
 	@ Desc : ajax post 전송을 합니다. 결과를 콘솔창에 보여줍니다. / 222
 	*/
-	,post:function(_url, _param_obj, _delegate_after_job_done, _delegate_param){
+	,post:function(_url, _param_obj, _delegate_after_job_done, _delegate_param, header_key_n_value){
 
 		var method_name = "airborne.ajax.post";
 		var _obj = airborne.bootstrap.obj;
@@ -75,6 +75,8 @@ airborne.ajax = {
 			return;
 		}
 
+		console.log("post / header_key_n_value :: ",header_key_n_value);
+
 		var method = "POST";
 		var request = $.ajax({
 			url:_url,
@@ -83,6 +85,17 @@ airborne.ajax = {
 			dataType:'json',
 			//parameters / { page : 1, size : 2 }
 			data:_param_obj,
+			beforeSend : function(xhr){
+				// set Header key & value
+				if(null == header_key_n_value) {
+					return;
+				}
+
+				for(var key in header_key_n_value) {
+					var value = header_key_n_value[key];
+			    	xhr.setRequestHeader(key, value); 
+				}
+			},			
 			success: function(response) {
 			}
 

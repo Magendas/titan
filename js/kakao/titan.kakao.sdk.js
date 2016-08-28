@@ -1,23 +1,31 @@
 var kakao_sdk = {
+	access_token:null
 	// @ reference : https://developers.kakao.com/docs/js-reference
-	init:function(kakao_app_key) {
+	, init:function(kakao_app_key) {
 
 		if (typeof Kakao == 'undefined') {
-			console.log("!Error! / undefined != Kakao");
+			console.log("!Error! / kakao_sdk / init / undefined != Kakao");
 			return;
 		}
 
 		if(_v.is_not_valid_str(kakao_app_key)) {
-			console.log("!Error! / _v.is_not_valid_str(kakao_app_key)");
+			console.log("!Error! / kakao_sdk / init / _v.is_not_valid_str(kakao_app_key)");
 			return;
 		}
 
 		Kakao.init(kakao_app_key);
 
 	} // end init
-	, sign_in:function(scope, callback_on_receive_user_info) {
+	, log_in:function(scope, callback_on_receive_user_info) {
 
-		// 직접 제작한 로그인/로그아웃 버튼을 사용하기 위해, sign_in/sign_out을 메서드로 제어해야 합니다.
+		if (typeof Kakao == 'undefined') {
+			console.log("!Error! / kakao_sdk / init / undefined != Kakao");
+			return;
+		}
+
+		var _self = this;
+
+		// 직접 제작한 로그인/로그아웃 버튼을 사용하기 위해, log_in/log_out을 메서드로 제어해야 합니다.
 		// 로그인 창을 띄웁니다.
 		Kakao.Auth.login({
 			success: function(authObj) {
@@ -25,7 +33,7 @@ var kakao_sdk = {
 				console.log("authObj :: ",authObj);
 
 				// 아래 3가지 정보는 반드시 있어야 합니다.
-				var access_token = authObj.access_token;
+				var access_token = _self.access_token = authObj.access_token;
 				var refresh_token = authObj.refresh_token;
 				var scope = authObj.scope;
 
@@ -47,10 +55,12 @@ var kakao_sdk = {
 						var callback_param = {
 							success:true
 							, from:"Kakao.API.request"
-							, user_id_kakao:user_id_kakao
+							, user_id:user_id_kakao
 							, user_email:""
-							, user_nickname_kakao:user_nickname_kakao
-							, user_profile_image_kakao:user_profile_image_kakao
+							, user_nickname:user_nickname_kakao
+							, user_first_name:""
+							, user_last_name:""
+							, user_profile_image:user_profile_image_kakao
 						}
 
 						if(null != callback_on_receive_user_info) {
@@ -89,13 +99,20 @@ var kakao_sdk = {
 			}
 		});		
 
-	} // end sign_in
-	, sign_out:function(scope, callback) {
+	} // end log_in
+	, log_out:function(scope, callback) {
+
+		if (typeof Kakao == 'undefined') {
+			console.log("!Error! / kakao_sdk / init / undefined != Kakao");
+			return;
+		}
 
 		Kakao.Auth.logout(function() {
-			callback.apply(scope, [])
+			if(callback != null && scope != null) {
+				callback.apply(scope, [])	
+			}
 		});
 
-	} // end sign_out
+	} // end log_out
 }
 
