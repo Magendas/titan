@@ -50,7 +50,18 @@ if(is_null($const)) {
 	echo "common.inc / is_null(\$const)<br/>";
 	die();
 }
+$const = FetchJSON::get($file_path_const);
 $file_path_const = null;
+
+// 서비스에서 사용되는 고정 상수 값들 - Error
+// constant parameters using in service.
+$file_path_const_error = __DIR__."/js/service/const.error.json";
+$const_error = FetchJSON::get($file_path_const_error);
+if(is_null($const_error)) {
+	echo "common.inc / is_null(\$const_error)<br/>";
+	die();
+}
+$file_path_const_error = null;
 
 // 서비스에서 사용되는 변수 명들
 // variable names using in service.

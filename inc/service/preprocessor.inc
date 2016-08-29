@@ -267,13 +267,148 @@ class TitanPreprocessor{
 
 
 
-
+		// wonder.jung - 에러 메시지를 화면에 표시하는 방법? HEADER?
 
 		// 아래와 같은 사전 작업을 진행합니다. 
 		$result->{$var_name->USER} = new stdClass();
 
 		// 외부 플랫폼 로그인에 필요한 데이터들을 확인합니다.
 		// 플랫폼 데이터가 유효하다면 전달받은 데이터로 로그인을 진행합니다.
+		// 1. FACEBOOK
+		if(!isset($const->{$var_name->APP_FACEBOOK})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_FACEBOOK})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_FACEBOOK})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_FACEBOOK})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_FACEBOOK}->{$var_name->DOMAIN})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->DOMAIN})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_FACEBOOK}->{$var_name->DOMAIN})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->DOMAIN})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_FACEBOOK}->{$var_name->SITE_URL})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->SITE_URL})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_FACEBOOK}->{$var_name->SITE_URL})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->SITE_URL})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_FACEBOOK}->{$var_name->ID})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->ID})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_FACEBOOK}->{$var_name->ID})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->ID})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_FACEBOOK}->{$var_name->VERSION})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->VERSION})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_FACEBOOK}->{$var_name->VERSION})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_FACEBOOK}->{$var_name->VERSION})");
+			return;
+		}
+
+		// 2. GOOGLE
+		if(!isset($const->{$var_name->APP_GOOGLE})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_GOOGLE})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_GOOGLE})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_GOOGLE})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_GOOGLE}->{$var_name->DOMAIN})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_GOOGLE}->{$var_name->DOMAIN})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_GOOGLE}->{$var_name->DOMAIN})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_GOOGLE}->{$var_name->DOMAIN})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_GOOGLE}->{$var_name->CLIENT_ID})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_GOOGLE}->{$var_name->CLIENT_ID})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_GOOGLE}->{$var_name->CLIENT_ID})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_GOOGLE}->{$var_name->CLIENT_ID})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_GOOGLE}->{$var_name->CLIENT_SECRET_KEY})) {
+			$this->set_prop_fail(
+				$result
+				, "!isset(\$const->{\$var_name->APP_GOOGLE}->{$var_name->CLIENT_SECRET_KEY})"
+			);
+			return;
+		}
+		if(empty($const->{$var_name->APP_GOOGLE}->{$var_name->CLIENT_SECRET_KEY})) {
+			$this->set_prop_fail(
+				$result
+				, "empty(\$const->{\$var_name->APP_GOOGLE}->{$var_name->CLIENT_SECRET_KEY})"
+			);
+			return;
+		}
+		if(!isset($const->{$var_name->APP_GOOGLE}->{$var_name->API_KEY})) {
+			$this->set_prop_fail(
+				$result
+				, "!isset(\$const->{\$var_name->APP_GOOGLE}->{$var_name->API_KEY})"
+			);
+			return;
+		}
+		if(empty($const->{$var_name->APP_GOOGLE}->{$var_name->API_KEY})) {
+			$this->set_prop_fail(
+				$result
+				, "empty(\$const->{\$var_name->APP_GOOGLE}->{$var_name->API_KEY})"
+			);
+			return;
+		}
+
+		// 3. KAKAO
+		if(!isset($const->{$var_name->APP_KAKAO})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_KAKAO})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_KAKAO})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_KAKAO})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_KAKAO}->{$var_name->DOMAIN})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_KAKAO}->{$var_name->DOMAIN})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_KAKAO}->{$var_name->DOMAIN})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_KAKAO}->{$var_name->DOMAIN})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_KAKAO}->{$var_name->KEY_REST_API})) {
+			$this->set_prop_fail($result, "!isset(\$const->{\$var_name->APP_KAKAO}->{$var_name->KEY_REST_API})");
+			return;
+		}
+		if(empty($const->{$var_name->APP_KAKAO}->{$var_name->KEY_REST_API})) {
+			$this->set_prop_fail($result, "empty(\$const->{\$var_name->APP_KAKAO}->{$var_name->KEY_REST_API})");
+			return;
+		}
+		if(!isset($const->{$var_name->APP_KAKAO}->{$var_name->KEY_JAVASCRIPT})) {
+			$this->set_prop_fail(
+				$result
+				, "!isset(\$const->{\$var_name->APP_KAKAO}->{$var_name->KEY_JAVASCRIPT})"
+			);
+			return;
+		}
+		if(empty($const->{$var_name->APP_KAKAO}->{$var_name->KEY_JAVASCRIPT})) {
+			$this->set_prop_fail(
+				$result
+				, "empty(\$const->{\$var_name->APP_KAKAO}->{$var_name->KEY_JAVASCRIPT})"
+			);
+			return;
+		}
 		
 
 		// 1. Log in check with cookie

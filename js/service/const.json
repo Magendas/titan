@@ -34,12 +34,14 @@
 		, "VERSION":"v2.6"
 	}
 	, "APP_GOOGLE":{
-		"CLIENT_ID":"254504306609-fhbcogr25167s2vicab51b1veo1so17n.apps.googleusercontent.com"
+		"DOMAIN":"magendas.com"
+		, "CLIENT_ID":"254504306609-fhbcogr25167s2vicab51b1veo1so17n.apps.googleusercontent.com"
 		, "CLIENT_SECRET_KEY":"Pu0iCvSYMbHGvwastW6jQNHj"
 		, "API_KEY":"AIzaSyDF647fG9RKwIbHiX-nVrUfJ6AxAyKnLXs"
 	}
 	, "APP_KAKAO":{
-		"KEY_REST_API":"2a5d2a53f80f2d87d8e9dba10ff726bc"
+		"DOMAIN":"magendas.com"
+		, "KEY_REST_API":"2a5d2a53f80f2d87d8e9dba10ff726bc"
 		, "KEY_JAVASCRIPT":"f79f9e707a406ca442077516db048a1b"
 	}
 	, "EMAIL_WEB_MASTER":"wonder@cafeclass.kr"
